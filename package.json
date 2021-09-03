@@ -1,0 +1,24 @@
+{
+  "name": "express-password-manager",
+  "version": "1.0.0",
+  "description": "Password manager by expressJS. Save the password in secure way.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sohagmahin/express-password-manager.git"
+  },
+  "keywords": [
+    "passwordManager",
+    "expressJS",
+    "NodeJS"
+  ],
+  "author": "Sohag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sohagmahin/express-password-manager/issues"
+  },
+  "homepage": "https://github.com/sohagmahin/express-password-manager#readme"
+}
