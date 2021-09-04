@@ -11,14 +11,19 @@ router.get('/all', async (req, res) => {
 
     try {
         const data = await Credential.find();
+        data.map(crd => {
+            crd.username = decryptData(crd.username);
+            crd.password = decryptData(crd.password);
+            return crd;
+        });
         res.status(200).json({
             data,
             message: 'success'
-        })
+        });
     } catch (err) {
         res.status(500).json({
             message: err.message
-        })
+        });
     }
     // res.status(200).json({
     //     message: 'This is get'
@@ -30,10 +35,8 @@ router.get('/:id', async (req, res) => {
 
     try {
         const data = await Credential.findOne({ _id: req.params.id });
-        // data.password = decryptData(data.password);
-        // console.log(decryptData(data.password));
-        //console.log('encrypted data: ' + data.password);
-        console.log('decrypted data : ' + decryptData(data.password));
+        data.username = decryptData(data.username);
+        data.password = decryptData(data.password);
         res.status(200).json({
             data,
             message: 'success'
@@ -51,17 +54,18 @@ router.get('/:id', async (req, res) => {
 // POST passmanager data
 router.post('/', async (req, res) => {
 
-    // const enryptedPassword = encryptData(req.body.password);
-    // console.log(enryptedPassword);
-    let decrytedPassword = decryptData("U2FsdGVkX19YlOzi7418X666knmDM7eWR40pslfRWK0=");
-    console.log(decrytedPassword);
+    const encrytedUsername = encryptData(req.body.username);
+    const enryptedPassword = encryptData(req.body.password);
 
     const credential = new Credential({
         ...req.body,
-        // password: enryptedPassword
+        username: encrytedUsername,
+        password: enryptedPassword
     });
     try {
         const data = await credential.save();
+        data.username = decryptData(data.username);
+        data.password = decryptData(data.password);
         res.status(200).json({
             data: data,
             message: 'Credential was inserted successfully!'
@@ -75,24 +79,54 @@ router.post('/', async (req, res) => {
 });
 
 // PUT passmanager data
-router.put('/', (req, res) => {
-    res.status(200).json({
-        message: 'This is put'
-    })
-});
+router.put('/:id', async (req, res) => {
 
-// PATCH passmanager data
-router.patch('/', (req, res) => {
-    res.status(200).json({
-        message: 'This is patch'
-    })
+    const updateData = {
+        ...req.body,
+    }
+    // encrypt username and password, if they have in req.body.
+    if (req.body.username) updateData.username = encryptData(req.body.username);
+    if (req.body.password) updateData.password = encryptData(req.body.password);
+
+    try {
+        const data = await Credential.findByIdAndUpdate(
+            { _id: req.params.id },
+            { $set: updateData },
+            { new: true }
+        );
+
+        // decrypt the username and password to plain text
+        data.username = decryptData(data.username);
+        data.password = decryptData(data.password);
+        res.status(200).json({
+            data,
+            message: 'success'
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        });
+    }
 });
 
 // DELETE passmanager data
-router.delete('/', (req, res) => {
-    res.status(200).json({
-        message: 'This is delete'
-    })
+router.delete('/:id', async (req, res) => {
+    try {
+        const data = await Credential.findByIdAndDelete({ _id: req.params.id });
+
+        // decrypt the username and password to plain text
+        data.username = decryptData(data.username);
+        data.password = decryptData(data.password);
+        res.status(200).json({
+            data,
+            message: 'success'
+        });
+    } catch (error) {
+        res.status(500).json({
+            data,
+            message: 'failed'
+        });
+    }
 });
 
 module.exports = router;

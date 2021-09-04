@@ -1,5 +1,4 @@
 const CryptoJS = require('crypto-js');
-const message = 'hello world';
 const secretKey = 'sohag123456';
 
 const encryptData = (data) => {
