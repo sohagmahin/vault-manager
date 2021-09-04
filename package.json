@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/sohagmahin/express-password-manager#readme",
   "dependencies": {
+    "crypto-js": "^4.1.1",
     "express": "^4.17.1",
     "mongoose": "^6.0.4"
   }

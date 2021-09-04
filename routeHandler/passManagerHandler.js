@@ -51,14 +51,14 @@ router.get('/:id', async (req, res) => {
 // POST passmanager data
 router.post('/', async (req, res) => {
 
-    const enryptedPassword = encryptData(req.body.password);
-    console.log(enryptedPassword);
-    // let decrytedPassword = decryptData("92a5593adf4bf849cc8fc10cd9df59a7");
-    // console.log(decrytedPassword);
+    // const enryptedPassword = encryptData(req.body.password);
+    // console.log(enryptedPassword);
+    let decrytedPassword = decryptData("U2FsdGVkX19YlOzi7418X666knmDM7eWR40pslfRWK0=");
+    console.log(decrytedPassword);
 
     const credential = new Credential({
         ...req.body,
-        password: enryptedPassword
+        // password: enryptedPassword
     });
     try {
         const data = await credential.save();
