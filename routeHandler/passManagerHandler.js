@@ -6,8 +6,10 @@ const { encryptData, decryptData } = require('../helpers/dataEncryption');
 const credientialSchema = require('../schema/credentialSchema');
 const Credential = mongoose.model('credential', credientialSchema);
 
+const authCheck = require('../middleware/authCheck');
+
 // GET passmanager data
-router.get('/all', async (req, res) => {
+router.get('/all', authCheck, async (req, res) => {
 
     try {
         const data = await Credential.find();
@@ -31,7 +33,7 @@ router.get('/all', async (req, res) => {
 });
 
 // GET passmanager data
-router.get('/:id', async (req, res) => {
+router.get('/:id', authCheck, async (req, res) => {
 
     try {
         const data = await Credential.findOne({ _id: req.params.id });
@@ -52,7 +54,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST passmanager data
-router.post('/', async (req, res) => {
+router.post('/', authCheck, async (req, res) => {
 
     const encrytedUsername = encryptData(req.body.username);
     const enryptedPassword = encryptData(req.body.password);
@@ -79,7 +81,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT passmanager data
-router.put('/:id', async (req, res) => {
+router.put('/:id', authCheck, async (req, res) => {
 
     const updateData = {
         ...req.body,
@@ -110,7 +112,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE passmanager data
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authCheck, async (req, res) => {
     try {
         const data = await Credential.findByIdAndDelete({ _id: req.params.id });
 
