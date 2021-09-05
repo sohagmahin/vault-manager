@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/sohagmahin/express-password-manager#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
