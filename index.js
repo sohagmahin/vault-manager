@@ -34,8 +34,3 @@ app.use(errorHandler);
 app.listen(process.env.PORT, () => {
     console.log(`Server running on ${process.env.PORT} port`);
 });
-
-// todo
-// 1. make relation -one to one or one to many.
-// 2. password encryption by bcrypt lib.
-// 3. token based authorization by jwt
