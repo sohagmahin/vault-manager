@@ -12,7 +12,7 @@ Simple password manager by expressJS.
 
 ## User Model
 
-`
+
 
     {
       name: {
@@ -29,11 +29,10 @@ Simple password manager by expressJS.
       }
     }
     
-`
+
 
 ## Credential Data model
 
-`
 
     {
         title: {
@@ -59,4 +58,3 @@ Simple password manager by expressJS.
             required: true
         }
     }
-`
