@@ -13,12 +13,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // credential: [
-    //     {
-    //         type: mongoose.Types.ObjectId,
-    //         ref: "credential"
-    //     }
-    // ]
+    credentials: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Credential"
+        }
+    ]
 });
 
 module.exports = userSchema;

@@ -4,7 +4,10 @@ const router = express.Router();
 
 const { encryptData, decryptData } = require('../helpers/dataEncryption');
 const credientialSchema = require('../schema/credentialSchema');
-const Credential = mongoose.model('credential', credientialSchema);
+const Credential = mongoose.model('Credential', credientialSchema);
+
+const userSchema = require('../schema/userSchema');
+const User = mongoose.model('User', userSchema);
 
 const authCheck = require('../middleware/authCheck');
 
@@ -14,7 +17,7 @@ router.get('/all', authCheck, async (req, res) => {
     try {
         const data = await Credential
             .find()
-            .populate("user", "-__v -password");
+            .populate("user", "-__v -password -credentials");
 
         data.map(crd => {
             crd.username = decryptData(crd.username);
@@ -72,8 +75,13 @@ router.post('/', authCheck, async (req, res) => {
     });
     try {
         const data = await credential.save();
+
+        // decrypt the username and password credential
         data.username = decryptData(data.username);
         data.password = decryptData(data.password);
+
+        // add crendential_id in user object
+        await User.updateOne({ _id: req.userId }, { $push: { credentials: data._id } });
         res.status(200).json({
             data: data,
             message: 'Credential was inserted successfully!'

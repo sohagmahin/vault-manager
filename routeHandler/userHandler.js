@@ -16,14 +16,35 @@ router.get('/all', authCheck, async (req, res) => {
             .select({
                 password: 0,
                 __v: 0
-            });
+            })
+            .populate("credentials");
         res.status(200).json({
             data,
             message: 'success'
         })
     } catch {
         res.status(500).json({
+            message: 'failed'
+        });
+    }
+});
+
+// GET SINGLE USER
+router.get('/:id', authCheck, async (req, res) => {
+    try {
+        const data = await User.findOne({ _id: req.params.id })
+            .select({
+                password: 0,
+                __v: 0
+            })
+            .populate("credentials");
+        res.status(200).json({
+            data,
             message: 'success'
+        })
+    } catch {
+        res.status(500).json({
+            message: 'failed'
         });
     }
 });
