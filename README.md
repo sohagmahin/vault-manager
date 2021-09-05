@@ -12,8 +12,51 @@ Simple password manager by expressJS.
 
 ## User Model
 
-`{ name: { type: String, required: true }, username: { type: String, required: true }, password: { type: String, required: true }, } `
+`
+
+    {
+      name: {
+          type: String,
+          required: true
+      },
+      username: {
+          type: String,
+          required: true
+      },
+      password: {
+          type: String,
+          required: true
+      }
+    }
+    
+`
 
 ## Credential Data model
 
-`{ title: { type: String, }, description: { type: String }, domain: { type: String, required: true }, username: { type: String, required: true }, password: { type: String, required: true }, }`
+`
+
+    {
+        title: {
+            type: String,
+        },
+
+        description: {
+            type: String
+        },
+
+        domain: {
+            type: String,
+            required: true
+        },
+
+        username: {
+            type: String,
+            required: true
+        },
+
+        password: {
+            type: String,
+            required: true
+        }
+    }
+`
