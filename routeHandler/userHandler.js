@@ -1,27 +1,50 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const userSchema = require('../schema/userSchema');
 const User = new mongoose.model('User', userSchema);
 
 const router = express.Router();
 const { createHash, compareHash } = require('../helpers/dataEncryption');
+const authCheck = require('../middleware/authCheck');
 
 // GET ALL USER
-router.get('/all', async (req, res) => {
+router.get('/all', authCheck, async (req, res) => {
     try {
         const data = await User.find()
             .select({
                 password: 0,
                 __v: 0
-            });
+            })
+            .populate("credentials");
         res.status(200).json({
             data,
-            message: 'Signup success'
+            message: 'success'
         })
     } catch {
         res.status(500).json({
-            message: 'Signup failed'
+            message: 'failed'
+        });
+    }
+});
+
+// GET SINGLE USER
+router.get('/:id', authCheck, async (req, res) => {
+    try {
+        const data = await User.findOne({ _id: req.params.id })
+            .select({
+                password: 0,
+                __v: 0
+            })
+            .populate("credentials");
+        res.status(200).json({
+            data,
+            message: 'success'
+        })
+    } catch {
+        res.status(500).json({
+            message: 'failed'
         });
     }
 });
@@ -34,7 +57,19 @@ router.post('/login', async (req, res) => {
         if (user) {
             const isValidPassword = await compareHash(req.body.password, user.password);
             if (isValidPassword) {
+                // Generate token
+                const token = await jwt.sign(
+                    {
+                        username: user.username,
+                        userId: user._id
+                    },
+                    process.env.JWT_SECRET,
+                    {
+                        expiresIn: '1h'
+                    }
+                );
                 res.status(200).json({
+                    access_token: token,
                     message: 'Login successful!'
                 });
             } else {
@@ -87,7 +122,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // UPDATE USER
-router.put('/:id', async (req, res) => {
+router.put('/:id', authCheck, async (req, res) => {
 
     const updateUser = { ...req.body };
     if (req.body.password) {
@@ -116,7 +151,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE USER
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authCheck, async (req, res) => {
     try {
         const data = await User.findByIdAndDelete({ _id: req.params.id })
             .select({

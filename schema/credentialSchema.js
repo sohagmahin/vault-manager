@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 const credentialSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
     },
     description: {
         type: String
+    },
+    domain: {
+        type: String,
+        required: true
     },
     username: {
         type: String,
@@ -15,9 +18,10 @@ const credentialSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // initVector:{
-    //     type: 
-    // }
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    }
 });
 
 module.exports = credentialSchema;

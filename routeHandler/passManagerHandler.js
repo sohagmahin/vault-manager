@@ -4,13 +4,21 @@ const router = express.Router();
 
 const { encryptData, decryptData } = require('../helpers/dataEncryption');
 const credientialSchema = require('../schema/credentialSchema');
-const Credential = mongoose.model('credential', credientialSchema);
+const Credential = mongoose.model('Credential', credientialSchema);
+
+const userSchema = require('../schema/userSchema');
+const User = mongoose.model('User', userSchema);
+
+const authCheck = require('../middleware/authCheck');
 
 // GET passmanager data
-router.get('/all', async (req, res) => {
+router.get('/all', authCheck, async (req, res) => {
 
     try {
-        const data = await Credential.find();
+        const data = await Credential
+            .find()
+            .populate("user", "-__v -password -credentials");
+
         data.map(crd => {
             crd.username = decryptData(crd.username);
             crd.password = decryptData(crd.password);
@@ -31,10 +39,13 @@ router.get('/all', async (req, res) => {
 });
 
 // GET passmanager data
-router.get('/:id', async (req, res) => {
+router.get('/:id', authCheck, async (req, res) => {
 
     try {
-        const data = await Credential.findOne({ _id: req.params.id });
+        const data = await Credential
+            .findOne({ _id: req.params.id })
+            .populate("user", "-__v -password");
+
         data.username = decryptData(data.username);
         data.password = decryptData(data.password);
         res.status(200).json({
@@ -52,20 +63,25 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST passmanager data
-router.post('/', async (req, res) => {
+router.post('/', authCheck, async (req, res) => {
 
     const encrytedUsername = encryptData(req.body.username);
     const enryptedPassword = encryptData(req.body.password);
-
     const credential = new Credential({
         ...req.body,
         username: encrytedUsername,
-        password: enryptedPassword
+        password: enryptedPassword,
+        user: req.userId,
     });
     try {
         const data = await credential.save();
+
+        // decrypt the username and password credential
         data.username = decryptData(data.username);
         data.password = decryptData(data.password);
+
+        // add crendential_id in user object
+        await User.updateOne({ _id: req.userId }, { $push: { credentials: data._id } });
         res.status(200).json({
             data: data,
             message: 'Credential was inserted successfully!'
@@ -79,7 +95,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT passmanager data
-router.put('/:id', async (req, res) => {
+router.put('/:id', authCheck, async (req, res) => {
 
     const updateData = {
         ...req.body,
@@ -102,15 +118,15 @@ router.put('/:id', async (req, res) => {
             data,
             message: 'success'
         });
-    } catch (err) {
+    } catch {
         res.status(500).json({
-            message: err.message
+            message: "Update failed!!"
         });
     }
 });
 
 // DELETE passmanager data
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authCheck, async (req, res) => {
     try {
         const data = await Credential.findByIdAndDelete({ _id: req.params.id });
 
@@ -119,12 +135,12 @@ router.delete('/:id', async (req, res) => {
         data.password = decryptData(data.password);
         res.status(200).json({
             data,
-            message: 'success'
+            message: 'Delete success!'
         });
     } catch (error) {
         res.status(500).json({
             data,
-            message: 'failed'
+            message: 'Delete failed!'
         });
     }
 });
