@@ -18,9 +18,10 @@ const credentialSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // initVector:{
-    //     type: 
-    // }
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    }
 });
 
 module.exports = credentialSchema;

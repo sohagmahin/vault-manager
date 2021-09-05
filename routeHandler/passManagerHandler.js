@@ -12,7 +12,10 @@ const authCheck = require('../middleware/authCheck');
 router.get('/all', authCheck, async (req, res) => {
 
     try {
-        const data = await Credential.find();
+        const data = await Credential
+            .find()
+            .populate("user", "-__v -password");
+
         data.map(crd => {
             crd.username = decryptData(crd.username);
             crd.password = decryptData(crd.password);
@@ -36,7 +39,10 @@ router.get('/all', authCheck, async (req, res) => {
 router.get('/:id', authCheck, async (req, res) => {
 
     try {
-        const data = await Credential.findOne({ _id: req.params.id });
+        const data = await Credential
+            .findOne({ _id: req.params.id })
+            .populate("user", "-__v -password");
+
         data.username = decryptData(data.username);
         data.password = decryptData(data.password);
         res.status(200).json({
@@ -58,11 +64,11 @@ router.post('/', authCheck, async (req, res) => {
 
     const encrytedUsername = encryptData(req.body.username);
     const enryptedPassword = encryptData(req.body.password);
-
     const credential = new Credential({
         ...req.body,
         username: encrytedUsername,
-        password: enryptedPassword
+        password: enryptedPassword,
+        user: req.userId,
     });
     try {
         const data = await credential.save();
