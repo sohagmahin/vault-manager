@@ -104,9 +104,9 @@ router.put('/:id', authCheck, async (req, res) => {
             data,
             message: 'success'
         });
-    } catch (err) {
+    } catch {
         res.status(500).json({
-            message: err.message
+            message: "Update failed!!"
         });
     }
 });
@@ -121,12 +121,12 @@ router.delete('/:id', authCheck, async (req, res) => {
         data.password = decryptData(data.password);
         res.status(200).json({
             data,
-            message: 'success'
+            message: 'Delete success!'
         });
     } catch (error) {
         res.status(500).json({
             data,
-            message: 'failed'
+            message: 'Delete failed!'
         });
     }
 });
