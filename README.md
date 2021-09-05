@@ -58,3 +58,9 @@ Simple password manager by expressJS.
             required: true
         }
     }
+    
+## dotenv file
+    PORT=3000
+    CREDENTIAL_SECRET_KEY=putYourSecretKey
+    USER_SECRET_KEY=putYourSecretKey
+    JWT_SECRET=putYourSecretKey
