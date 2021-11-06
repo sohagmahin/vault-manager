@@ -1,18 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();
 
 const { encryptData, decryptData } = require('../helpers/dataEncryption');
-const credientialSchema = require('../schema/credentialSchema');
+const credientialSchema = require('../model/credentialSchema');
 const Credential = mongoose.model('Credential', credientialSchema);
 
-const userSchema = require('../schema/userSchema');
+const userSchema = require('../model/userSchema');
 const User = mongoose.model('User', userSchema);
 
-const authCheck = require('../middleware/authCheck');
 
-// GET passmanager data
-router.get('/all', authCheck, async (req, res) => {
+// GET all passmanager data
+const getAllCredential = async (req, res) => {
 
     try {
         const data = await Credential
@@ -36,10 +34,10 @@ router.get('/all', authCheck, async (req, res) => {
     // res.status(200).json({
     //     message: 'This is get'
     // })
-});
+};
 
-// GET passmanager data
-router.get('/:id', authCheck, async (req, res) => {
+// GET SINGLE CREDENTIAL
+const getCredential = async (req, res) => {
 
     try {
         const data = await Credential
@@ -60,10 +58,10 @@ router.get('/:id', authCheck, async (req, res) => {
     // res.status(200).json({
     //     message: 'This is get'
     // })
-});
+};
 
-// POST passmanager data
-router.post('/', authCheck, async (req, res) => {
+// CREATE CREDENTIAL
+const createCredential = async (req, res) => {
 
     const encrytedUsername = encryptData(req.body.username);
     const enryptedPassword = encryptData(req.body.password);
@@ -92,10 +90,10 @@ router.post('/', authCheck, async (req, res) => {
             message: 'Credentail insertion failed!'
         });
     }
-});
+};
 
-// PUT passmanager data
-router.put('/:id', authCheck, async (req, res) => {
+// UPDATE CREDENTIAL
+const updateCredential = async (req, res) => {
 
     const updateData = {
         ...req.body,
@@ -123,10 +121,10 @@ router.put('/:id', authCheck, async (req, res) => {
             message: "Update failed!!"
         });
     }
-});
+};
 
-// DELETE passmanager data
-router.delete('/:id', authCheck, async (req, res) => {
+// DELETE CREDENTIAL
+const deleteCredential = async (req, res) => {
     try {
         const data = await Credential.findByIdAndDelete({ _id: req.params.id });
 
@@ -143,6 +141,12 @@ router.delete('/:id', authCheck, async (req, res) => {
             message: 'Delete failed!'
         });
     }
-});
+};
 
-module.exports = router;
+module.exports = {
+    getAllCredential,
+    getCredential,
+    createCredential,
+    updateCredential,
+    deleteCredential
+}

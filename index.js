@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const app = express();
-const passmanagerHandler = require('./routeHandler/passManagerHandler');
-const userHandler = require('./routeHandler/userHandler');
+const passmanagerHandler = require('./router/passManagerRoute');
+const userHandler = require('./router/userRoute');
 
 // enable dotenv
 dotenv.config();

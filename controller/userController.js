@@ -1,16 +1,12 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-const userSchema = require('../schema/userSchema');
+const userSchema = require('../model/userSchema');
 const User = new mongoose.model('User', userSchema);
-
-const router = express.Router();
 const { createHash, compareHash } = require('../helpers/dataEncryption');
-const authCheck = require('../middleware/authCheck');
 
 // GET ALL USER
-router.get('/all', authCheck, async (req, res) => {
+const getAllUser = async (req, res) => {
     try {
         const data = await User.find()
             .select({
@@ -27,10 +23,10 @@ router.get('/all', authCheck, async (req, res) => {
             message: 'failed'
         });
     }
-});
+};
 
 // GET SINGLE USER
-router.get('/:id', authCheck, async (req, res) => {
+const getUser = async (req, res) => {
     try {
         const data = await User.findOne({ _id: req.params.id })
             .select({
@@ -47,10 +43,10 @@ router.get('/:id', authCheck, async (req, res) => {
             message: 'failed'
         });
     }
-});
+};
 
-// POST LOGIN
-router.post('/login', async (req, res) => {
+// LOGIN
+const login = async (req, res) => {
     try {
         // const user = new User(req.body);
         const user = await User.findOne({ username: req.body.username })
@@ -87,10 +83,11 @@ router.post('/login', async (req, res) => {
             message: 'Authentication failed'
         });
     }
-});
+};
 
-// POST SIGNUP
-router.post('/signup', async (req, res) => {
+// SIGNUP
+
+const signup = async (req, res) => {
     try {
 
         // look up the user collection to see user have already exist or not.
@@ -119,10 +116,10 @@ router.post('/signup', async (req, res) => {
             message: 'Signup failed'
         });
     }
-});
+};
 
 // UPDATE USER
-router.put('/:id', authCheck, async (req, res) => {
+const updateUser = async (req, res) => {
 
     const updateUser = { ...req.body };
     if (req.body.password) {
@@ -148,10 +145,11 @@ router.put('/:id', authCheck, async (req, res) => {
             message: 'update failed!'
         });
     }
-});
+};
+
 
 // DELETE USER
-router.delete('/:id', authCheck, async (req, res) => {
+const deleteUser = async (req, res) => {
     try {
         const data = await User.findByIdAndDelete({ _id: req.params.id })
             .select({
@@ -173,6 +171,13 @@ router.delete('/:id', authCheck, async (req, res) => {
             message: 'delete failed!'
         });
     }
-});
+};
 
-module.exports = router;
+module.exports = {
+    getAllUser,
+    getUser,
+    login,
+    signup,
+    deleteUser,
+    updateUser,
+};
