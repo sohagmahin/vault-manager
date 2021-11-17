@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const authCheck = require('../middleware/authCheck');
+const authCheck = require('../middleware/common/authCheck');
 const {
     getAllCredential,
     getCredential,

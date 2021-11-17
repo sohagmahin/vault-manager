@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authCheck = require('../middleware/authCheck');
+const authCheck = require('../middleware/common/authCheck');
+const { loginValidator, loginValidatorHandler } = require('../middleware/login/loginValidator');
 
 const {
     getAllUser,
@@ -17,7 +18,7 @@ router.get('/all', authCheck, getAllUser);
 router.get('/:id', authCheck, getUser);
 
 // POST LOGIN
-router.post('/login', login);
+router.post('/login', loginValidator, loginValidatorHandler, login);
 
 // POST SIGNUP
 router.post('/signup', signup);
