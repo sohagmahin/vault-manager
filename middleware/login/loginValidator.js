@@ -17,7 +17,7 @@ const loginValidatorHandler = function (req, res, next) {
     if (Object.keys(mappedErrors).length === 0) {
         next();
     } else {
-        res.status(402).json({
+        res.status(400).json({
             data: {
                 username: req.body.username,
             },
