@@ -2,17 +2,15 @@
 
 Simple password manager by expressJS.
 
+- [x] User CRUD
 - [x] Password manager CRUD
-- [x] Password manager data encryption by CryptoJS libary
-- [x] User creation CRUD
-- [x] Make Relation with user collection and credential(data) collection.
-- [x] Password encryption by bcrypt libary.
+- [x] Encrypt and Decrypt data by CryptoJS libary
+- [x] Relation with user and credential(schema). [One to One, One to many]
+- [x] Hash password by bcrypt libary.
 - [x] Token based authorization by jwt
-- [ ] Data validation
+- [x] Request validation by express-validator
 
-## User Model
-
-
+## User Schema
 
     {
       name: {
@@ -28,11 +26,8 @@ Simple password manager by expressJS.
           required: true
       }
     }
-    
 
-
-## Credential Data model
-
+## Credential Schema
 
     {
         title: {
@@ -58,8 +53,9 @@ Simple password manager by expressJS.
             required: true
         }
     }
-    
+
 ## dotenv file
+
     PORT=3000
     CREDENTIAL_SECRET_KEY=putYourSecretKey
     USER_SECRET_KEY=putYourSecretKey
