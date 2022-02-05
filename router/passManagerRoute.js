@@ -9,6 +9,10 @@ const {
     updateCredential,
     deleteCredential } = require('../controller/passManagerController');
 
+const {
+    credentialValidator,
+    credentialValidatorHandler } = require('../middleware/credential/credentialValidator');
+
 // GET all credential 
 router.get('/all', authCheck, getAllCredential);
 
@@ -16,7 +20,7 @@ router.get('/all', authCheck, getAllCredential);
 router.get('/:id', authCheck, getCredential);
 
 // POST create credential 
-router.post('/', authCheck, createCredential);
+router.post('/', authCheck, credentialValidator, credentialValidatorHandler, createCredential);
 
 // PUT credential 
 router.put('/:id', authCheck, updateCredential);
