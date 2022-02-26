@@ -1,31 +1,39 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const authCheck = require('../middleware/common/authCheck');
+const authCheck = require("../middleware/common/authCheck");
 const {
-    getAllCredential,
-    getCredential,
-    createCredential,
-    updateCredential,
-    deleteCredential } = require('../controller/passManagerController');
+  getAllCredential,
+  getCredential,
+  createCredential,
+  updateCredential,
+  deleteCredential,
+} = require("../controller/passManagerController");
 
 const {
-    credentialValidator,
-    credentialValidatorHandler } = require('../middleware/credential/credentialValidator');
+  credentialValidator,
+  credentialValidatorHandler,
+} = require("../middleware/credential/credentialValidator");
 
-// GET all credential 
-router.get('/all', authCheck, getAllCredential);
+// GET all credential
+router.get("/all", authCheck, getAllCredential);
 
-// GET single credential 
-router.get('/:id', authCheck, getCredential);
+// GET single credential
+router.get("/:id", authCheck, getCredential);
 
-// POST create credential 
-router.post('/', authCheck, credentialValidator, credentialValidatorHandler, createCredential);
+// POST create credential
+router.post(
+  "/",
+  authCheck,
+  credentialValidator,
+  credentialValidatorHandler,
+  createCredential
+);
 
-// PUT credential 
-router.put('/:id', authCheck, updateCredential);
+// PUT credential
+router.put("/:id", authCheck, updateCredential);
 
-// DELETE credential 
-router.delete('/:id', authCheck, deleteCredential);
+// DELETE credential
+router.delete("/:id", authCheck, deleteCredential);
 
 module.exports = router;
