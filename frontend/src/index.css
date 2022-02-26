@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+  transform: rotate(45deg);
+  .m-2px {
+    margin: 2px;
+  }
+  .m-1px {
+    margin: 1px;
+  }
+  .h-95 {
+    height: 95% !important;
+  }
+  .pt-30vh {
+    padding-top: 30vh;
+  }
+  .mt-20prcnt {
+    margin-top: 20%;
+  }
+  .h-95vh {
+    height: 95vh !important;
+  }
+  .h-80vh {
+    height: 80vh !important;
+  }
+  .max-w-70prcnt {
+    max-width: 70%;
+  }
+  .grid-container {
+    display: grid;
+    /* grid-template-columns: repeat(5, auto); */
+  }
+}
+
+.link-theme {
+  @apply flex flex-row items-center text-white;
+}
