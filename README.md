@@ -2,5 +2,5 @@
 
 Vault manager by expressJS. It's a simple and lightweight pass-manager, which is powered by CryptoJS.
 
-Run project:
+Start backend and frontend in one command:
 `npm run dev`
