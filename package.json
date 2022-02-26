@@ -4,6 +4,7 @@
   "description": "vault-manger by cryptoJS",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/sohagmahin/express-password-manager/issues"
   },
-  "homepage": "https://github.com/sohagmahin/express-password-manager#readme"
+  "homepage": "https://github.com/sohagmahin/express-password-manager#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  }
 }
