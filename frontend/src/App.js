@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import HeaderMerchants from "./components/Headers/Header";
-import Login from "./containers/Login/Login";
+import Auth from "./containers/Auth/Auth";
 import Footer from "./components/Footer/Footer";
 import Home from "./containers/Home/Home";
 
@@ -11,7 +11,7 @@ function App() {
     <Router>
       {/* <HeaderMerchants /> */}
       <Switch>
-        <Route exact path="/Login" component={Login} />
+        <Route exact path="/auth" component={Auth} />
         <Route exact path="/" component={Home} />
       </Switch>
       {/* <Footer /> */}
