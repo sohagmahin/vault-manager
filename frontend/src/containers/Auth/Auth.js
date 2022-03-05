@@ -10,7 +10,7 @@ const AuthMode = Object.freeze({
   SINGUP: "SINGUP",
 });
 
-const Login = () => {
+const Auth = () => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
@@ -85,4 +85,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Auth;
