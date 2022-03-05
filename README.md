@@ -1,4 +1,4 @@
-# Vault manger -(`password manger`)
+# Vault manger -(`password manager`)
 
 Vault manager by `express and NodeJS`. It's a simple and lightweight password manager, which is powered by `CryptoJS`.
 
