@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 // internal imports
 import * as actions from "../../store/actions";
+import { AUTH_SUCCESS } from "../../store/actions/actionTypes";
 
 const AuthMode = Object.freeze({
   SINGIN: "SINGIN",
@@ -42,9 +43,17 @@ const Auth = () => {
     event.preventDefault();
 
     console.log(userName + password);
-    AuthMode.SINGIN === currentAuthMode
-      ? dispatch(actions.singIn(userName, password))
-      : dispatch(actions.singUp(name, userName, password));
+    if (AuthMode.SINGIN === currentAuthMode) {
+      let response = dispatch(actions.singIn(userName, password));
+      response.then((result) => {
+        if (result.type === AUTH_SUCCESS) {
+          window.location = "/";
+        }
+      });
+    } else {
+      let response = dispatch(actions.singUp(name, userName, password));
+      response.then((resut) => {});
+    }
   };
 
   return (

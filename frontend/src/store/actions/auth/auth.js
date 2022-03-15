@@ -27,9 +27,9 @@ export const singIn = (userName, password) => {
       let response = await postSingIn(userName, password);
       console.log("===sing-in response====");
       console.log(response.data);
-      dispatch(authSuccess(response.data));
+      return dispatch(authSuccess(response.data));
     } catch (err) {
-      dispatch(authFail({ message: err.message }));
+      return dispatch(authFail({ message: err.message }));
     }
   };
 };
@@ -41,9 +41,9 @@ export const singUp = (name, userName, password) => {
       let response = await postSingUp(name, userName, password);
       console.log("===sign-up response====");
       console.log(response.data);
-      dispatch(authSuccess(response.data));
+      return dispatch(authSuccess(response.data));
     } catch (err) {
-      dispatch(authFail({ message: err.message }));
+      return dispatch(authFail({ message: err.message }));
     }
   };
 };
