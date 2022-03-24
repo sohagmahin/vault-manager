@@ -1,6 +1,7 @@
 // external imports
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 // internal imports
 import * as actions from "../../store/actions";
@@ -18,7 +19,7 @@ const Auth = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [currentAuthMode, setCurrentAuthMode] = useState(AuthMode.SINGIN);
-
+  const [redirectPath, setRedirectPath] = useState("");
   const onChangeHandler = (event, type) => {
     let value = event.target.value;
     if (type === "username") {
@@ -47,7 +48,8 @@ const Auth = () => {
       let response = dispatch(actions.singIn(userName, password));
       response.then((result) => {
         if (result.type === AUTH_SUCCESS) {
-          window.location = "/";
+          // window.location = "/";
+          setRedirectPath("/");
         }
       });
     } else {
@@ -58,6 +60,7 @@ const Auth = () => {
 
   return (
     <div className="flex flex-col">
+      {redirectPath !== "" ? <Redirect to="/" /> : null}
       <form className="flex flex-col" onSubmit={onSubmit}>
         {AuthMode.SINGUP === currentAuthMode ? (
           <input

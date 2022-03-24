@@ -1,8 +1,8 @@
 // local services
-export const storeLocalStorage = (key, value) => {
-    return localStorage.setItem(key, value);
-}
+export const storeLocalData = (key, value) => {
+  return localStorage.setItem(key, value);
+};
 
-export const getLocalStorage = (key) => {
-    return localStorage.getItem(key);
-}
+export const getLocalData = (key) => {
+  return localStorage.getItem(key);
+};

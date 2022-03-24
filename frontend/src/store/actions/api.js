@@ -23,7 +23,27 @@ export const postSingUp = (name, username, password) => {
   });
 };
 
-export const getSingleTodo = () => {
-  console.log("getSingleTodo api call");
-  return Axios.get("/todos/1");
+export const postCredential = (
+  title,
+  description,
+  domain,
+  username,
+  password
+) => {
+  console.log("postCredential api calling...");
+  console.log(title + description + domain + username + password);
+  return Axios.post("/passmanager", {
+    title,
+    description,
+    domain,
+    username,
+    password,
+  });
 };
+
+export const getCredentials = () => {
+  console.log("getAllCredential api calling...");
+  return Axios.get("/passmanager/all");
+};
+
+// http://localhost:3001/passmanager/

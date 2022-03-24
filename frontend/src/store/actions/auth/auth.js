@@ -1,5 +1,7 @@
+import { LOCAL_STORAGE_KEY } from "../../../constants/keys";
+import { storeLocalData } from "../../../services/localServices";
 import * as actionTypes from "../actionTypes";
-import { getTodo, postSingIn, postSingUp } from "../api";
+import { postSingIn, postSingUp } from "../api";
 
 const authStart = () => {
   return {
@@ -27,6 +29,7 @@ export const singIn = (userName, password) => {
       let response = await postSingIn(userName, password);
       console.log("===sing-in response====");
       console.log(response.data);
+      storeLocalData(LOCAL_STORAGE_KEY, JSON.stringify(response.data));
       return dispatch(authSuccess(response.data));
     } catch (err) {
       return dispatch(authFail({ message: err.message }));

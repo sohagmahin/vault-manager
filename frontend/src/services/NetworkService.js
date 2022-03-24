@@ -1,7 +1,8 @@
 import axios from "axios";
-import { LOCAL_USER_KEY } from "../constants/keys";
+import { LOCAL_STORAGE_KEY } from "../constants/keys";
 import store from "../store/index";
 import { openErrorModal } from "../store/actions/index";
+import { getLocalData } from "./localServices";
 
 const instance = axios.create({
   baseURL: "http://localhost:3001",
@@ -10,11 +11,12 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    let localStorageData = localStorage.getItem(LOCAL_USER_KEY);
+    let localStorageData = getLocalData(LOCAL_STORAGE_KEY);
 
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
-      const token = parsedData.accessToken;
+      console.log("Interceptor" + parsedData.access_token);
+      const token = parsedData.access_token;
       config.headers.Authorization = token;
     }
     // console.log(config);
