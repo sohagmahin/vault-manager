@@ -6,11 +6,12 @@ This project made for just `fun!!`:blush:
 
 Run Project:
 
-Set up env in /backend folder:
-rename `.env.example` to `.env` and update it.
+1. Set up `env` in /backend folder: 
 
-Install Yarn globally:
-`sudo npm install -g yarn`
+   Rename `.env.example` to `.env` and update it.
 
-Run this command:
-`cd frontend && yarn && cd .. && cd backend && yarn && cd .. && yarn run dev`
+2. Install Yarn globally:
+  `sudo npm install -g yarn`
+
+3. Run this command:
+  `cd frontend && yarn && cd .. && cd backend && yarn && cd .. && yarn run dev`
