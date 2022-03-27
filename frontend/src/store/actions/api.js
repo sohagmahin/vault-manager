@@ -64,4 +64,9 @@ export const putCredential = (
     password,
   });
 };
+
+export const deleteCredentials = (id) => {
+  console.log("getAllCredential api calling...");
+  return Axios.delete(`/passmanager/${id}`);
+};
 // http://localhost:3001/passmanager/

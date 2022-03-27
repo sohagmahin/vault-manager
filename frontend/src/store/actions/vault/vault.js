@@ -1,5 +1,11 @@
 import * as actionTypes from "../actionTypes";
-import { postCredential, putCredential, getCredentials } from "../api";
+import {
+  postCredential,
+  putCredential,
+  deleteCredentials,
+  getCredentials,
+} from "../api";
+
 const vaultStart = () => {
   return {
     type: actionTypes.VAULT_START,
@@ -84,6 +90,19 @@ export const updateCredential = (
         username,
         password
       );
+      console.log(response.data);
+      return dispatch(tempVaultSuccess(response.data));
+    } catch (err) {
+      return dispatch(vaultFail({ message: err.message }));
+    }
+  };
+};
+
+export const removeCredential = (id) => {
+  return async (dispatch) => {
+    dispatch(vaultStart());
+    try {
+      let response = await deleteCredentials(id);
       console.log(response.data);
       return dispatch(tempVaultSuccess(response.data));
     } catch (err) {
