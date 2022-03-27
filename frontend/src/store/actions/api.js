@@ -46,4 +46,22 @@ export const getCredentials = () => {
   return Axios.get("/passmanager/all");
 };
 
+export const putCredential = (
+  id,
+  title,
+  description,
+  domain,
+  username,
+  password
+) => {
+  console.log("postCredential api calling...");
+  console.log(id + title + description + domain + username + password);
+  return Axios.put(`/passmanager/${id}`, {
+    title,
+    description,
+    domain,
+    username,
+    password,
+  });
+};
 // http://localhost:3001/passmanager/

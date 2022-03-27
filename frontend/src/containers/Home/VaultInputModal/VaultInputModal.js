@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../../components/UI/Modal/Modal";
 import { useDispatch } from "react-redux";
-import { addCredential } from "../../../store/actions/index";
+import { addCredential, updateCredential } from "../../../store/actions/index";
 import { VaultInputMode } from "../../../shared/utility";
 
 function VaultInputModal({
@@ -10,6 +10,7 @@ function VaultInputModal({
   selectedVaultMode,
   updateData,
 }) {
+  const [crId, setCrId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [domain, setDomain] = useState("");
@@ -53,6 +54,9 @@ function VaultInputModal({
       dispatch(addCredential(title, description, domain, userName, password));
     else if (VaultInputMode.UPDATE === selectedVaultMode) {
       //update dispatch
+      dispatch(
+        updateCredential(crId, title, description, domain, userName, password)
+      );
     }
   };
 
@@ -61,6 +65,7 @@ function VaultInputModal({
 
     console.log({ ...updateData });
     //filled up the form
+    setCrId(updateData.id);
     setTitle(updateData.title);
     setDescription(updateData.description);
     setDomain(updateData.domain);
