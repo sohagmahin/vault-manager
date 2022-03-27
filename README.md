@@ -4,5 +4,10 @@ Vault manager by `express and NodeJS`. It's a simple and lightweight password ma
 
 This project made for just `fun!!`:blush:
 
-Start backend and frontend in one command:
-`npm run dev`
+Run Project:
+
+Install Yarn globally:
+`sudo npm install -g yarn`
+
+Run this command:
+`cd frontend && yarn && cd .. && cd backend && yarn && cd .. && yarn run dev`
