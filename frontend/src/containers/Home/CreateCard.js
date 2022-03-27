@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import VaultInputModal from "./VaultInputModal/VaultInputModal";
 import Modal from "../../components/UI/Modal/Modal";
 import { VaultInputMode } from "../../shared/utility";
+import { PLUS_ICON } from "../../constants/images";
 
 function CreateCard() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
+    <div>
       {showModal ? (
         <VaultInputModal
           showModal={showModal}
@@ -16,12 +17,12 @@ function CreateCard() {
         />
       ) : null}
       <div
-        className="flex h-52 w-52 m-2 bg-gray-400"
+        className="flex h-52 w-52 m-2 p-16 bg-gray-400"
         onClick={() => setShowModal(true)}
       >
-        CreateCard
+        {PLUS_ICON}
       </div>
-    </>
+    </div>
   );
 }
 
