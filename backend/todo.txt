@@ -2,3 +2,4 @@
 2. change DB design
 3. write test code
 4. add redis for caching
+5. dockerize app
