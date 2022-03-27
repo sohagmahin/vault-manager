@@ -6,6 +6,9 @@ This project made for just `fun!!`:blush:
 
 Run Project:
 
+Set up env in /backend folder:
+rename `.env.example` to `.env` and update it.
+
 Install Yarn globally:
 `sudo npm install -g yarn`
 
