@@ -5,3 +5,9 @@ export const updateObject = (oldState, updatedProperties) => {
     ...updatedProperties,
   };
 };
+
+//enum: vault input mode
+export const VaultInputMode = Object.freeze({
+  ADD: "ADD",
+  UPDATE: "UPDATE",
+});

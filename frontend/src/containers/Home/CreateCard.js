@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import CreateModal from "../../components/Home/CreateModal/CreateModal";
+import VaultInputModal from "./VaultInputModal/VaultInputModal";
 import Modal from "../../components/UI/Modal/Modal";
+import { VaultInputMode } from "../../shared/utility";
 
 function CreateCard() {
   const [showModal, setShowModal] = useState(false);
@@ -8,7 +9,11 @@ function CreateCard() {
   return (
     <>
       {showModal ? (
-        <CreateModal showModal={showModal} setShowModal={setShowModal} />
+        <VaultInputModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          selectedVaultMode={VaultInputMode.ADD}
+        />
       ) : null}
       <div
         className="flex h-52 w-52 m-2 bg-gray-400"

@@ -1,9 +1,15 @@
-import React, { useState } from "react";
-import Modal from "../../UI/Modal/Modal";
+import React, { useEffect, useState } from "react";
+import Modal from "../../../components/UI/Modal/Modal";
 import { useDispatch } from "react-redux";
 import { addCredential } from "../../../store/actions/index";
+import { VaultInputMode } from "../../../shared/utility";
 
-function CreateModal({ showModal, setShowModal }) {
+function VaultInputModal({
+  showModal,
+  setShowModal,
+  selectedVaultMode,
+  updateData,
+}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [domain, setDomain] = useState("");
@@ -43,12 +49,34 @@ function CreateModal({ showModal, setShowModal }) {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log("on submit clicked!!");
-    dispatch(addCredential(title, description, domain, userName, password));
+    if (VaultInputMode.ADD === selectedVaultMode)
+      dispatch(addCredential(title, description, domain, userName, password));
+    else if (VaultInputMode.UPDATE === selectedVaultMode) {
+      //update dispatch
+    }
   };
+
+  useEffect(() => {
+    if (!updateData) return;
+
+    console.log({ ...updateData });
+    //filled up the form
+    setTitle(updateData.title);
+    setDescription(updateData.description);
+    setDomain(updateData.domain);
+    setUserName(updateData.username);
+    setPassword(updateData.password);
+  }, [updateData]);
+
+  let labelText = (
+    <div>
+      {selectedVaultMode === VaultInputMode.ADD ? "Add" : "Update"} Credential
+    </div>
+  );
 
   let dialog = (
     <div className="flex flex-col">
-      <div>Add Your Credential</div>
+      {labelText}
       <form className="flex flex-col" onSubmit={onSubmit}>
         <input
           type="text"
@@ -83,7 +111,10 @@ function CreateModal({ showModal, setShowModal }) {
           value={password}
           onChange={(event) => onChangeHandler(event, "password")}
         />
-        <input type="submit" value="Add" />
+        <input
+          type="submit"
+          value={selectedVaultMode === VaultInputMode.ADD ? "Add" : "Update"}
+        />
       </form>
       <button onClick={() => setShowModal(false)}>Cancel</button>
     </div>
@@ -96,4 +127,4 @@ function CreateModal({ showModal, setShowModal }) {
   );
 }
 
-export default CreateModal;
+export default VaultInputModal;

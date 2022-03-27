@@ -25,8 +25,9 @@ function Home() {
       {vaultData?.map((credential) => {
         return (
           <CredentialCard
+            id={credential._id}
             title={credential.title}
-            desciption={credential.description}
+            description={credential.description}
             domain={credential.domain}
             username={credential.username}
             password={credential.password}
