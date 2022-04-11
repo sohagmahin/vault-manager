@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import store from './store';
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import store from "./store";
 
 const app = (
   <React.StrictMode>
@@ -15,6 +15,6 @@ const app = (
   </React.StrictMode>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(app, document.getElementById("root"));
 
 reportWebVitals();

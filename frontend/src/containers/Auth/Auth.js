@@ -59,40 +59,71 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="hero min-h-screen bg-base-200">
       {redirectPath !== "" ? <Navigate to="/" /> : null}
-      <form className="flex flex-col" onSubmit={onSubmit}>
-        {AuthMode.SINGUP === currentAuthMode ? (
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(event) => onChangeHandler(event, "name")}
-          />
-        ) : (
-          <></>
-        )}
-        <input
-          type="text"
-          placeholder="Username"
-          value={userName}
-          onChange={(event) => onChangeHandler(event, "username")}
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => onChangeHandler(event, "password")}
-        />
-        <button>
-          {AuthMode.SINGIN === currentAuthMode ? "Sign In" : "Sign Up"}
-        </button>
-        <button onClick={onAuthToggle}>
-          Switch to{" "}
-          {AuthMode.SINGIN === currentAuthMode ? "Sign Up" : "Sign In"}
-        </button>
-      </form>
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="card w-full shadow-2xl bg-base-100">
+          <div className="card-body w-80">
+            {AuthMode.SINGUP === currentAuthMode ? (
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  onChange={(event) => onChangeHandler(event, "name")}
+                  className="input input-bordered"
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Username</span>
+              </label>
+              <input
+                type="text"
+                placeholder="username"
+                value={userName}
+                onChange={(event) => onChangeHandler(event, "username")}
+                className="input input-bordered"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(event) => onChangeHandler(event, "password")}
+                className="input input-bordered"
+              />
+              <label className="label">
+                <a href="#" className="label-text-alt link link-hover">
+                  Forgot password?
+                </a>
+              </label>
+            </div>
+            <div className="form-control mt-6">
+              <button className="btn btn-primary" onClick={onSubmit}>
+                {AuthMode.SINGIN === currentAuthMode ? "LOGIN" : "REGISTER"}
+              </button>
+            </div>
+            <div class="divider">OR</div>
+            <div className="flex justify-center">
+              <button onClick={onAuthToggle}>
+                Do you want to{" "}
+                {AuthMode.SINGIN === currentAuthMode ? "register?" : "login?"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
