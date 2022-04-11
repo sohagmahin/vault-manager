@@ -1,7 +1,7 @@
 // external imports
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 // internal imports
 import * as actions from "../../store/actions";
@@ -60,7 +60,7 @@ const Auth = () => {
 
   return (
     <div className="flex flex-col">
-      {redirectPath !== "" ? <Redirect to="/" /> : null}
+      {redirectPath !== "" ? <Navigate to="/" /> : null}
       <form className="flex flex-col" onSubmit={onSubmit}>
         {AuthMode.SINGUP === currentAuthMode ? (
           <input
