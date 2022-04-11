@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../../components/UI/Modal/Modal";
 import { useDispatch } from "react-redux";
-import {
-  addCredential,
-  updateCredential,
-  removeCredential,
-} from "../../../store/actions/index";
+import { addCredential, updateCredential } from "../../../store/actions/index";
 import { VaultInputMode } from "../../../shared/utility";
 
 function VaultInputModal({
@@ -125,11 +121,6 @@ function VaultInputModal({
           value={selectedVaultMode === VaultInputMode.ADD ? "Add" : "Update"}
         />
       </form>
-      {selectedVaultMode === VaultInputMode.UPDATE ? (
-        <button onClick={() => dispatch(removeCredential(crId))}>
-          Delete CR
-        </button>
-      ) : null}
       <button onClick={() => setShowModal(false)}>Cancel</button>
     </div>
   );

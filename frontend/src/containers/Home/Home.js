@@ -21,7 +21,7 @@ function Home() {
     setVaultData(data);
   }, [data]);
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row gap-3 m-2">
       {vaultData?.map((credential) => {
         return (
           <CredentialCard
