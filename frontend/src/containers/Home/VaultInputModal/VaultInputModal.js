@@ -3,6 +3,7 @@ import Modal from "../../../components/UI/Modal/Modal";
 import { useDispatch } from "react-redux";
 import { addCredential, updateCredential } from "../../../store/actions/index";
 import { VaultInputMode } from "../../../shared/utility";
+import CustomInput from "../../../components/UI/Input/CustomInput";
 
 function VaultInputModal({
   showModal,
@@ -74,16 +75,15 @@ function VaultInputModal({
   }, [updateData]);
 
   let labelText = (
-    <div>
+    <h3 className="text-lg font-bold">
       {selectedVaultMode === VaultInputMode.ADD ? "Add" : "Update"} Credential
-    </div>
+    </h3>
   );
 
   let dialog = (
     <div className="flex flex-col">
-      {labelText}
       <form className="flex flex-col" onSubmit={onSubmit}>
-        <input
+        <CustomInput
           type="text"
           placeholder="Title"
           value={title}
@@ -91,43 +91,63 @@ function VaultInputModal({
           // onChange={onChangeHandler}
         />
 
-        <input
+        <CustomInput
           type="text"
           placeholder="Description"
           value={description}
           onChange={(event) => onChangeHandler(event, "description")}
         />
 
-        <input
+        <CustomInput
           type="text"
           placeholder="Domain"
           value={domain}
           onChange={(event) => onChangeHandler(event, "domain")}
         />
-        <input
+        <CustomInput
           type="text"
           placeholder="UserName"
           value={userName}
           onChange={(event) => onChangeHandler(event, "username")}
         />
-        <input
+        <CustomInput
           type="text"
           placeholder="Password"
           value={password}
           onChange={(event) => onChangeHandler(event, "password")}
         />
+
         <input
           type="submit"
+          className="btn btn-primary mt-4"
           value={selectedVaultMode === VaultInputMode.ADD ? "Add" : "Update"}
         />
       </form>
-      <button onClick={() => setShowModal(false)}>Cancel</button>
     </div>
   );
   return (
     <>
       {/* {dialog} */}
-      <Modal show={showModal}> {dialog}</Modal>
+      {/* <Modal show={showModal}> {dialog}</Modal> */}
+      <div
+        className={
+          showModal
+            ? "modal modal-open transition duration-150 ease-in-out"
+            : "opacity-0 transition duration-150 ease-in-out"
+        }
+      >
+        <div className="modal-box relative">
+          <label
+            onClick={() => setShowModal(false)}
+            for="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          {labelText}
+          <p>{dialog}</p>
+        </div>
+      </div>
     </>
   );
 }
