@@ -2,7 +2,7 @@ import React from "react";
 
 const CustomInput = ({ type, placeholder, value, onChange }) => {
   return (
-    <div className="form-control w-full max-w-xs">
+    <div className="form-control w-full ">
       <label className="label">
         <span className="label-text">{placeholder}</span>
       </label>
@@ -11,7 +11,7 @@ const CustomInput = ({ type, placeholder, value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered w-full"
       />
     </div>
   );
