@@ -1,8 +1,8 @@
 import axios from "axios";
-import { LOCAL_STORAGE_KEY } from "../constants/keys";
 import store from "../store/index";
 import { openErrorModal } from "../store/actions/index";
 import { getLocalData } from "./localServices";
+import { LOCAL_AUTH_KEY } from "../constants/index";
 
 const instance = axios.create({
   baseURL: "http://localhost:3001",
@@ -11,7 +11,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    let localStorageData = getLocalData(LOCAL_STORAGE_KEY);
+    let localStorageData = getLocalData(LOCAL_AUTH_KEY);
 
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
@@ -30,9 +30,14 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // if (error.response.status === 401) {
-    //   localStorage.removeItem(LOCAL_USER_KEY);
-    //   window.location = "/login";
+    if (error.response.status === 401) {
+      localStorage.removeItem(LOCAL_AUTH_KEY);
+      window.location = "/auth";
+    }
+    if (error.response.status === 500) {
+      localStorage.removeItem(LOCAL_AUTH_KEY);
+      store.dispatch(openErrorModal(error.message));
+    }
     // } else if (error.response.status === 404) {
     //   console.log("erroor -message : ", error.message);
     //   window.location = "/404";
