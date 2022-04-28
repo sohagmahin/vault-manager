@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { VaultInputMode } from "../../shared/utility";
+import { errorToast, successToast, VaultInputMode } from "../../shared/utility";
 import VaultInputModal from "./VaultInputModal/VaultInputModal";
-import { removeCredential } from "../../store/actions/index";
+import { getAllCredentials, removeCredential } from "../../store/actions/index";
 import CustomInput from "../../components/UI/Input/CustomInput";
-
+import {
+  TEMP_VAULT_SUCCESS,
+  VAULT_FAIL,
+} from "../../store/actions/actionTypes";
 const CredentialCard = ({
   id,
   title,
@@ -12,9 +15,14 @@ const CredentialCard = ({
   domain,
   username,
   password,
+  successToastMsg,
+  errToastMsg,
+  setSuccessToastMsg,
+  setErrToastMsg,
 }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+
   const currentCredential = {
     id,
     title,
@@ -25,7 +33,17 @@ const CredentialCard = ({
   };
 
   const removeItem = () => {
-    dispatch(removeCredential(id));
+    let response = dispatch(removeCredential(id));
+    response.then((result) => {
+      if (result.type === TEMP_VAULT_SUCCESS) {
+        //refetch all data
+        dispatch(getAllCredentials());
+        setSuccessToastMsg("Delete successfull!");
+      } else if (result.type === VAULT_FAIL) {
+        setSuccessToastMsg("");
+        setErrToastMsg("Delete failed!");
+      }
+    });
   };
 
   const input_field = (labelText, placeholder) => (
