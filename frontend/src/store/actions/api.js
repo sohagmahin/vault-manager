@@ -16,6 +16,7 @@ export const postSingIn = (username, password) => {
 export const postSingUp = (name, username, password) => {
   console.log("postLogin api call");
   console.log(username + password);
+  Axios.interceptors.response.eject(resInterceptor);
   return Axios.post("/user/signup", {
     name: name,
     username: username,
