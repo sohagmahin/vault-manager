@@ -9,7 +9,7 @@ const instance = axios.create({
   timeout: 2500,
 });
 
-instance.interceptors.request.use(
+export const reqInterceptor = instance.interceptors.request.use(
   (config) => {
     let localStorageData = getLocalData(LOCAL_AUTH_KEY);
 
@@ -25,7 +25,7 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-instance.interceptors.response.use(
+export const resInterceptor = instance.interceptors.response.use(
   (response) => {
     return response;
   },

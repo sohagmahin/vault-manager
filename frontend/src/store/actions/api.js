@@ -1,5 +1,4 @@
-import axios from "axios";
-import Axios from "../../services/NetworkService";
+import Axios, { resInterceptor } from "../../services/NetworkService";
 
 // ---->write your api call<----
 
@@ -7,6 +6,7 @@ import Axios from "../../services/NetworkService";
 export const postSingIn = (username, password) => {
   console.log("postLogin api call");
   console.log(username + password);
+  Axios.interceptors.response.eject(resInterceptor);
   return Axios.post("/user/login", {
     username: username,
     password: password,
