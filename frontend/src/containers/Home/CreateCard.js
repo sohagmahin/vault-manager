@@ -16,8 +16,9 @@ function CreateCard() {
           selectedVaultMode={VaultInputMode.ADD}
         />
       ) : null}
+
       <div
-        className="flex h-52 w-52 m-2 p-16 bg-gray-400"
+        className="flex justify-center p-6 md:w-72 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
         onClick={() => setShowModal(true)}
       >
         {PLUS_ICON}
