@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../../../components/UI/Modal/Modal";
 import { useDispatch } from "react-redux";
-import { addCredential, updateCredential } from "../../../store/actions/index";
-import { VaultInputMode } from "../../../shared/utility";
+import {
+  addCredential,
+  getAllCredentials,
+  updateCredential,
+} from "../../../store/actions/index";
+import { errorToast, VaultInputMode } from "../../../shared/utility";
 import CustomInput from "../../../components/UI/Input/CustomInput";
+import {
+  TEMP_VAULT_SUCCESS,
+  VAULT_FAIL,
+} from "../../../store/actions/actionTypes";
+import { successToast } from "../../../shared/utility";
 
 function VaultInputModal({
   showModal,
@@ -17,6 +25,8 @@ function VaultInputModal({
   const [domain, setDomain] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [successToastMsg, setSuccessToastMsg] = useState("");
+  const [errToastMsg, setErrToastMsg] = useState("");
 
   const dispatch = useDispatch();
   const onChangeHandler = (event, type) => {
@@ -51,13 +61,33 @@ function VaultInputModal({
   const onSubmit = (event) => {
     event.preventDefault();
     console.log("on submit clicked!!");
-    if (VaultInputMode.ADD === selectedVaultMode)
-      dispatch(addCredential(title, description, domain, userName, password));
-    else if (VaultInputMode.UPDATE === selectedVaultMode) {
+    if (VaultInputMode.ADD === selectedVaultMode) {
+      let response = dispatch(
+        addCredential(title, description, domain, userName, password)
+      );
+      response.then((result) => {
+        if (result.type === TEMP_VAULT_SUCCESS) {
+          //  refetch the all data
+          setSuccessToastMsg("Add Successull!");
+          dispatch(getAllCredentials());
+        } else if (result.type === VAULT_FAIL) {
+          setErrToastMsg("Add failed!");
+        }
+      });
+    } else if (VaultInputMode.UPDATE === selectedVaultMode) {
       //update dispatch
-      dispatch(
+      let response = dispatch(
         updateCredential(crId, title, description, domain, userName, password)
       );
+      response.then((result) => {
+        if (result.type === TEMP_VAULT_SUCCESS) {
+          //  refetch the all data
+          setSuccessToastMsg("Update succefull!");
+          dispatch(getAllCredentials());
+        } else if (result.type === VAULT_FAIL) {
+          setErrToastMsg("Update failed!");
+        }
+      });
     }
   };
 
@@ -136,6 +166,10 @@ function VaultInputModal({
             : "opacity-0 transition duration-150 ease-in-out"
         }
       >
+        {successToastMsg
+          ? successToast(successToastMsg, () => setSuccessToastMsg(""))
+          : null}
+        {errToastMsg ? errorToast(errToastMsg, () => setErrToastMsg("")) : null}
         <div className="modal-box relative">
           <label
             onClick={() => setShowModal(false)}
