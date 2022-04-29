@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 const app = express();
 const passmanagerHandler = require("./router/passManagerRoute");
@@ -9,6 +10,7 @@ const userHandler = require("./router/userRoute");
 // enable dotenv
 dotenv.config();
 
+app.use(cors());
 app.use(express.json());
 
 // connect mongoDB

@@ -9,7 +9,10 @@ const authCheck = async (req, res, next) => {
     req.userId = userId;
     next();
   } catch (err) {
-    next("Authorization failed!");
+    // next("Authorization failed!");
+    res.status(401).json({
+      error: "Authorization failed!",
+    });
   }
 };
 

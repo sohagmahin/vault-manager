@@ -1,62 +1,17 @@
-# express-password-manager
+# Vault manger -(`password manager`)
 
-Simple password manager by expressJS.
+Vault manager by `express and NodeJS`. It's a simple and lightweight password manager, which is powered by `CryptoJS`.
 
-- [x] User CRUD
-- [x] Password manager CRUD
-- [x] Encrypt and Decrypt data by CryptoJS libary
-- [x] Relation with user and credential(schema). [One to One, One to many]
-- [x] Hash password by bcrypt libary.
-- [x] Token based authorization by jwt
-- [x] Request validation by express-validator
+This project made for `fun!!`:blush:
 
-## User Schema
+Run Project:
 
-    {
-      name: {
-          type: String,
-          required: true
-      },
-      username: {
-          type: String,
-          required: true
-      },
-      password: {
-          type: String,
-          required: true
-      }
-    }
+1. Set up `env` in /backend folder: 
 
-## Credential Schema
+   Rename `.env.example` to `.env` and update it.
 
-    {
-        title: {
-            type: String,
-        },
+2. Install Yarn globally:
+  `sudo npm install -g yarn`
 
-        description: {
-            type: String
-        },
-
-        domain: {
-            type: String,
-            required: true
-        },
-
-        username: {
-            type: String,
-            required: true
-        },
-
-        password: {
-            type: String,
-            required: true
-        }
-    }
-
-## dotenv file
-
-    PORT=3000
-    CREDENTIAL_SECRET_KEY=putYourSecretKey
-    USER_SECRET_KEY=putYourSecretKey
-    JWT_SECRET=putYourSecretKey
+3. Run this command:
+  `cd frontend && yarn && cd .. && cd backend && yarn && cd .. && yarn run dev`

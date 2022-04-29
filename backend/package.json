@@ -1,10 +1,10 @@
 {
-  "name": "vault-manager",
+  "name": "express-password-manager",
   "version": "1.0.0",
-  "description": "vault-manger by cryptoJS",
+  "description": "Password manager by expressJS. Save the password in secure way.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\" ",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,20 +12,24 @@
     "url": "git+https://github.com/sohagmahin/express-password-manager.git"
   },
   "keywords": [
-    "valut-manager",
-    "crtyptoJS",
+    "passwordManager",
     "expressJS",
-    "ReactJS",
-    "MongoDB"
+    "NodeJS"
   ],
-  "author": "sohag",
+  "author": "Sohag",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sohagmahin/express-password-manager/issues"
   },
   "homepage": "https://github.com/sohagmahin/express-password-manager#readme",
-  "devDependencies": {
-    "concurrently": "^7.0.0",
-    "nodemon": "^2.0.15"
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.4"
   }
 }
