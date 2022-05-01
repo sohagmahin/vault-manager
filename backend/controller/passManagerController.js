@@ -11,10 +11,18 @@ const User = mongoose.model("User", userSchema);
 // GET all passmanager data
 const getAllCredential = async (req, res) => {
   try {
-    const data = await Credential.find().populate(
-      "user",
-      "-__v -password -credentials"
-    );
+    // Use Populate
+    // const data = await Credential.find().populate(
+    //   "user",
+    //   "-__v -password -credentials"
+    // );
+
+    // Use Aggregate
+    const data = await Credential.aggregate([
+      {
+        $match: { user: mongoose.Types.ObjectId(req.userId) },
+      },
+    ]);
 
     data.map((crd) => {
       crd.username = decryptData(crd.username);
