@@ -35,7 +35,7 @@ function Home() {
         {/* show error toast message -/DELETE/- */}
         {errToastMsg ? errorToast(errToastMsg, () => setErrToastMsg("")) : null}
       </div>
-      <div className="flex flex-row gap-3 m-2">
+      <div className="flex gap-3 m-2 flex-wrap flex-col sm:flex-row">
         {vaultData?.map((credential) => {
           return (
             <CredentialCard
