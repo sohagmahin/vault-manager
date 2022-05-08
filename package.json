@@ -2,9 +2,11 @@
   "name": "vault-manager",
   "version": "1.0.0",
   "description": "vault-manger by cryptoJS",
-  "main": "index.js",
+  "main": "backend/index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\" ",
+    "start": "node backend/index.js",
+    "dev": "concurrently \"npm start\" \"cd frontend && npm start\" ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +29,15 @@
   "devDependencies": {
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.2"
   }
 }
