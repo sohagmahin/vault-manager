@@ -15,7 +15,7 @@ app.use(express.json());
 
 // connect mongoDB
 mongoose
-  .connect("mongodb://localhost/passwordmanager")
+  .connect(process.env.MONGODB_URL)
   .then(() => console.log("MongoDB connected successfully!"))
   .catch((err) => console.log(err));
 
