@@ -4,8 +4,13 @@ import { openErrorModal } from "../store/actions/index";
 import { getLocalData } from "./localServices";
 import { LOCAL_AUTH_KEY } from "../constants/index";
 
+const baseURL =
+  process.env.REACT_APP_ENV === "production"
+    ? process.env.REACT_APP_HOST
+    : "https://localhost:3001";
+
 const instance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: baseURL,
   timeout: 2500,
 });
 
