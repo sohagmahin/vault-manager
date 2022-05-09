@@ -8,7 +8,7 @@
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm start  --prefix frontend\" ",
     "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend",
     "server": "npm start --prefix backend",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+    "start": "npm run server && npm run start --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
