@@ -8,8 +8,8 @@ const baseURL =
   process.env.REACT_APP_ENV !== "production" ? "http://localhost:3001" : "";
 
 const instance = axios.create({
-  baseURL: baseURL,
-  timeout: 2500,
+  baseURL: "",
+  // timeout: 2500,
 });
 
 export const reqInterceptor = instance.interceptors.request.use(
