@@ -4,8 +4,8 @@
   "description": "vault-manger by cryptoJS",
   "main": "index.js",
   "scripts": {
-    "install": "npm install -prefix backend && npm install -prefix frontend",
-    "dev": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\" ",
+    "install": "npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently \"npm start --prefix backend\" \"npm start  --prefix frontend\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

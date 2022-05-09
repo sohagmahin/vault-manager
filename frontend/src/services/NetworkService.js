@@ -7,7 +7,7 @@ import { LOCAL_AUTH_KEY } from "../constants/index";
 const baseURL =
   process.env.REACT_APP_ENV === "production"
     ? process.env.REACT_APP_HOST
-    : "https://localhost:3001";
+    : "http://localhost:3001";
 
 const instance = axios.create({
   baseURL: baseURL,

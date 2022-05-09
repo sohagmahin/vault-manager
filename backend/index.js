@@ -32,6 +32,11 @@ const errorHandler = (err, req, res, next) => {
 };
 
 app.use(errorHandler);
+app.use("/", (req, res) => {
+  res.status(200).json({
+    message: "Hello word",
+  });
+});
 
 // start server
 app.listen(process.env.PORT, () => {
