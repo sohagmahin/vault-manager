@@ -3,30 +3,11 @@ import VaultInputModal from "./VaultInputModal/VaultInputModal";
 import FAB from "../../components/UI/Button/FAB";
 import { VaultInputMode } from "../../shared/utility";
 import { PLUS_ICON } from "../../constants/images";
+import useWindowSize from "../../hooks/useWindowSize";
 
 function CreateButton() {
   const [showModal, setShowModal] = useState(false);
-
-  //get window dimention
-  const [windowDimention, detectHW] = useState({
-    winWidth: window.innerWidth,
-    winHeight: window.innerHeight,
-  });
-
-  const detectSize = () => {
-    detectHW({
-      winWidth: window.innerWidth,
-      winHeight: window.innerHeight,
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", detectSize);
-
-    return () => {
-      window.removeEventListener("resize", detectSize);
-    };
-  }, [windowDimention]);
+  const { width } = useWindowSize();
 
   let normalAddButton = (
     <div
@@ -52,7 +33,7 @@ function CreateButton() {
         />
       ) : null}
 
-      {windowDimention.winWidth > 640 ? normalAddButton : FABButton}
+      {width > 640 ? normalAddButton : FABButton}
     </div>
   );
 }
