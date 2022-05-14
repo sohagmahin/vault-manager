@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route exact path="/auth" element={<Auth />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
