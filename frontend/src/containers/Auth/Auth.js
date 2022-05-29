@@ -116,6 +116,7 @@ const Auth = () => {
                 <span className="label-text">Username</span>
               </label>
               <input
+              id="username"
                 type="text"
                 placeholder="username"
                 value={userName}
@@ -128,6 +129,7 @@ const Auth = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
+              id="password"
                 type="password"
                 placeholder="password"
                 value={password}
@@ -141,7 +143,9 @@ const Auth = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary" onClick={onSubmit}>
+              <button
+              id="submit"
+               className="btn btn-primary" onClick={onSubmit}>
                 {AuthMode.SINGIN === currentAuthMode ? "LOGIN" : "REGISTER"}
               </button>
             </div>
