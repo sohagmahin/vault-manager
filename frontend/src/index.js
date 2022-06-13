@@ -16,9 +16,6 @@ const app = (
   </React.StrictMode>
 );
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
-
-ReactDOM.render(root);
+ReactDOM.render(app, document.getElementById("root"));
 
 reportWebVitals();
