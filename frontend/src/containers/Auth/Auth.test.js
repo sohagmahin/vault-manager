@@ -1,18 +1,7 @@
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import reducers from "../../store/reducers";
-import { render, screen, cleanup } from "@testing-library/react";
+import { screen, cleanup } from "@testing-library/react";
 import Auth from "./Auth";
 import userEvent from "@testing-library/user-event";
-
-function renderWithRedux(
-  component,
-  { initialState, store = createStore(reducers, initialState) } = {}
-) {
-  return {
-    ...render(<Provider store={store}>{component}</Provider>),
-  };
-}
+import { renderWithRedux } from "../../test-utils";
 
 describe("authentication page", () => {
   afterEach(cleanup);
