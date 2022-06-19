@@ -56,7 +56,7 @@ const CredentialCard = ({
   const input_field = (labelText, placeholder) => (
     <>
       <label
-        for="helper-text"
+        htmlFor="helper-text"
         className="block mt-1 text-sm font-medium text-gray-900 dark:text-gray-300"
       >
         {labelText}
@@ -75,7 +75,7 @@ const CredentialCard = ({
   const customTextArea = (text) => (
     <>
       <label
-        for="desciption"
+        htmlFor="desciption"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
       >
         Description
@@ -86,9 +86,8 @@ const CredentialCard = ({
         rows="4"
         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Description"
-      >
-        {text}
-      </textarea>
+        value={text}
+      />
     </>
   );
 
@@ -109,7 +108,7 @@ const CredentialCard = ({
             {title}
           </h5>
           <div className="flex-none">
-            <div class="dropdown dropdown-end">
+            <div className="dropdown dropdown-end">
               <button
                 tabIndex="0"
                 className="card-actions btn btn-square btn-ghost items-center"
@@ -121,16 +120,16 @@ const CredentialCard = ({
                   className="inline-block w-5 h-5 stroke-current"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
                   ></path>
                 </svg>
               </button>
               <ul
-                tabindex="0"
-                class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-36"
+                tabIndex="0"
+                className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-36"
               >
                 <li>
                   <a onClick={() => setShowModal(true)}>Edit</a>
