@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { errorToast, successToast, VaultInputMode } from "../../shared/utility";
-import VaultInputModal from "./VaultInputModal/VaultInputModal";
-import { getAllCredentials, removeCredential } from "../../store/actions/index";
-import CustomInput from "../../components/UI/Input/CustomInput";
+import {
+  errorToast,
+  successToast,
+  VaultInputMode,
+} from "../../../shared/utility";
+import VaultInputModal from "../VaultInputModal/VaultInputModal";
+import {
+  getAllCredentials,
+  removeCredential,
+} from "../../../store/actions/index";
+import CustomInput from "../../../components/UI/Input/CustomInput";
 import {
   TEMP_VAULT_SUCCESS,
   VAULT_FAIL,
-} from "../../store/actions/actionTypes";
+} from "../../../store/actions/actionTypes";
 const CredentialCard = ({
   id,
   title,
