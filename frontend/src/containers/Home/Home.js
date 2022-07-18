@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import withErrorModal from "../../components/HOC/withErrorModal/withErrorModal";
 import CreateButton from "./CreateButton";
 import { getAllCredentials } from "../../store/actions/index";
-import CredentialCard from "./CredentialCard";
+import CredentialCard from "./CredentialCard/CredentialCard";
 import { successToast, errorToast } from "../../shared/utility";
 
 function Home() {

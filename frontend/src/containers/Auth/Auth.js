@@ -116,7 +116,7 @@ const Auth = () => {
                 <span className="label-text">Username</span>
               </label>
               <input
-              id="username"
+                id="username"
                 type="text"
                 placeholder="username"
                 value={userName}
@@ -129,7 +129,7 @@ const Auth = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-              id="password"
+                id="password"
                 type="password"
                 placeholder="password"
                 value={password}
@@ -144,12 +144,14 @@ const Auth = () => {
             </div>
             <div className="form-control mt-6">
               <button
-              id="submit"
-               className="btn btn-primary" onClick={onSubmit}>
+                id="submit"
+                className="btn btn-primary"
+                onClick={onSubmit}
+              >
                 {AuthMode.SINGIN === currentAuthMode ? "LOGIN" : "REGISTER"}
               </button>
             </div>
-            <div class="divider">OR</div>
+            <div className="divider">OR</div>
             <div className="flex justify-center">
               <button onClick={onAuthToggle}>
                 Do you want to{" "}
