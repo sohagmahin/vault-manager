@@ -55,7 +55,11 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 
+//disable in testing time (temp)
 // start server
 app.listen(process.env.PORT, () => {
   console.log(`Server running on ${process.env.PORT} port`);
 });
+
+//enable it in testing time.
+// module.exports = app;
