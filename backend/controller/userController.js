@@ -1,21 +1,22 @@
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-
-const userSchema = require("../model/userSchema");
-const User = new mongoose.model("User", userSchema);
-const { createHash, compareHash } = require("../helpers/dataEncryption");
+const {
+  createHash,
+  compareHash,
+  generateToken,
+} = require("../helpers/dataEncryption");
+const {
+  getUserByUsername,
+  getUserByID,
+  saveUser,
+  updateUserByID,
+  deleteUserByID,
+} = require("../services/userService");
 
 // GET ALL USER
 const getAllUser = async (req, res) => {
   try {
-    const data = await User.find()
-      .select({
-        password: 0,
-        __v: 0,
-      })
-      .populate("credentials");
+    const users = await getAllUser();
     res.status(200).json({
-      data,
+      data: users,
       message: "success",
     });
   } catch {
@@ -28,14 +29,9 @@ const getAllUser = async (req, res) => {
 // GET SINGLE USER
 const getUser = async (req, res) => {
   try {
-    const data = await User.findOne({ _id: req.params.id })
-      .select({
-        password: 0,
-        __v: 0,
-      })
-      .populate("credentials");
+    const user = await getUserByID(req.params.id);
     res.status(200).json({
-      data,
+      data: user,
       message: "success",
     });
   } catch {
@@ -48,25 +44,16 @@ const getUser = async (req, res) => {
 // LOGIN
 const login = async (req, res) => {
   try {
-    // const user = new User(req.body);
-    const user = await User.findOne({ username: req.body.username });
+    // const user = await User.findOne({ username: req.body.username });
+    const user = await getUserByUsername(req.body.username);
+
     if (user) {
       const isValidPassword = await compareHash(
         req.body.password,
         user.password
       );
       if (isValidPassword) {
-        // Generate token
-        const token = await jwt.sign(
-          {
-            username: user.username,
-            userId: user._id,
-          },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: "1h",
-          }
-        );
+        const token = await generateToken(user);
         res.status(200).json({
           access_token: token,
           message: "Login successful!",
@@ -93,7 +80,7 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
   try {
     // look up the user collection to see user have already exist or not.
-    const userResult = await User.find({ username: req.body.username });
+    const userResult = await getUserByUsername(req.body.username);
     if (userResult.length > 0) {
       res.status(401).json({
         message: "Username already exist!",
@@ -103,12 +90,12 @@ const signup = async (req, res) => {
 
     // encrypt the password
     const hassedPassword = await createHash(req.body.password);
-    const user = new User({
+    const userObject = {
       ...req.body,
       password: hassedPassword,
-    });
+    };
+    await saveUser(userObject);
 
-    await user.save();
     res.status(200).json({
       message: "Signup success",
     });
@@ -122,23 +109,16 @@ const signup = async (req, res) => {
 
 // UPDATE USER
 const updateUser = async (req, res) => {
-  const updateUser = { ...req.body };
+  const userObject = { ...req.body };
   if (req.body.password) {
     // encrypt the password
     const hassedPassword = await createHash(req.body.password);
-    updateUser.password = hassedPassword;
+    userObject.password = hassedPassword;
   }
   try {
-    const data = await User.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $set: updateUser },
-      { new: true }
-    ).select({
-      password: 0,
-      __v: 0,
-    });
+    const updatedUser = await updateUserByID(req.params.id, userObject);
     res.status(200).json({
-      data,
+      data: updatedUser,
       message: "update success",
     });
   } catch (err) {
@@ -151,13 +131,10 @@ const updateUser = async (req, res) => {
 // DELETE USER
 const deleteUser = async (req, res) => {
   try {
-    const data = await User.findByIdAndDelete({ _id: req.params.id }).select({
-      password: 0,
-      __v: 0,
-    });
-    if (data !== null) {
+    const user = await deleteUserByID(req.params.id);
+    if (user !== null) {
       res.status(200).json({
-        data,
+        data: user,
         message: "delete success",
       });
     } else {
