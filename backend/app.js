@@ -7,6 +7,7 @@ const path = require("path");
 const app = express();
 const passmanagerHandler = require("./router/passManagerRoute");
 const userHandler = require("./router/userRoute");
+const connectDB = require("./helpers/connectDB");
 
 // enable dotenv
 dotenv.config();
@@ -17,6 +18,9 @@ app.use(express.json());
 // routes
 app.use("/passmanager", passmanagerHandler);
 app.use("/user", userHandler);
+
+//connect database for run app test suites
+connectDB();
 
 // default error handler
 const errorHandler = (err, req, res, next) => {

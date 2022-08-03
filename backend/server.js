@@ -1,5 +1,5 @@
 const app = require("./app");
-const connectDB = require("./helpers/connetDB");
+const connectDB = require("./helpers/connectDB");
 
 //connect to mongoDB
 connectDB();
