@@ -38,7 +38,7 @@ const generateToken = async (user) => {
       username: user.username,
       userId: user._id,
     },
-    JWT_SECRET,
+    process.env.JWT_SECRET,
     {
       expiresIn: "1h",
     }

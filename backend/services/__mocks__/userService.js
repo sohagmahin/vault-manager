@@ -3,7 +3,7 @@ const userSchema = require("../model/userSchema");
 const User = new mongoose.model("User", userSchema);
 
 //get all user
-const getUsers = async () => {
+const getAllUser = async () => {
   const users = await User.find()
     .select({
       password: 0,
@@ -22,12 +22,6 @@ const getUserByID = async (userId) => {
     })
     .populate("credentials");
   return user;
-};
-
-//get users by id
-const getUsersByUsername = async (username) => {
-  const users = await User.find({ username: username });
-  return users;
 };
 
 //get single user by username
@@ -67,9 +61,8 @@ const deleteUserByID = async (userID) => {
 };
 
 module.exports = {
-  getUsers,
+  getAllUser,
   getUserByID,
-  getUsersByUsername,
   getUserByUsername,
   saveUser,
   updateUserByID,

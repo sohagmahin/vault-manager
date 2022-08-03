@@ -4,22 +4,25 @@ const {
   generateToken,
 } = require("../helpers/dataEncryption");
 const {
+  getUsers,
   getUserByUsername,
   getUserByID,
   saveUser,
   updateUserByID,
   deleteUserByID,
+  getUsersByUsername,
 } = require("../services/userService");
 
 // GET ALL USER
 const getAllUser = async (req, res) => {
   try {
-    const users = await getAllUser();
+    const users = await getUsers();
     res.status(200).json({
       data: users,
       message: "success",
     });
-  } catch {
+  } catch (err) {
+    // console.log(err);
     res.status(500).json({
       message: "failed",
     });
@@ -46,7 +49,6 @@ const login = async (req, res) => {
   try {
     // const user = await User.findOne({ username: req.body.username });
     const user = await getUserByUsername(req.body.username);
-
     if (user) {
       const isValidPassword = await compareHash(
         req.body.password,
@@ -80,8 +82,8 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
   try {
     // look up the user collection to see user have already exist or not.
-    const userResult = await getUserByUsername(req.body.username);
-    if (userResult.length > 0) {
+    const userList = await getUsersByUsername(req.body.username);
+    if (userList.length > 0) {
       res.status(401).json({
         message: "Username already exist!",
       });
