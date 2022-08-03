@@ -84,10 +84,9 @@ const signup = async (req, res) => {
     // look up the user collection to see user have already exist or not.
     const userList = await getUsersByUsername(req.body.username);
     if (userList.length > 0) {
-      res.status(401).json({
+      return res.status(200).json({
         message: "Username already exist!",
       });
-      return;
     }
 
     // encrypt the password
@@ -98,11 +97,12 @@ const signup = async (req, res) => {
     };
     await saveUser(userObject);
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Signup success",
     });
   } catch (err) {
-    // console.log(err);
+    console.log("inside controller");
+    console.log(err);
     res.status(500).json({
       message: "Signup failed",
     });

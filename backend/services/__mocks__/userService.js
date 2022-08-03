@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = require("../model/userSchema");
+const userSchema = require("../../model/userSchema");
 const User = new mongoose.model("User", userSchema);
 
 //get all user
@@ -15,12 +15,13 @@ const getAllUser = async () => {
 
 //get single user by _id
 const getUserByID = async (userId) => {
-  const user = await User.findOne({ _id: userId })
-    .select({
-      password: 0,
-      __v: 0,
-    })
-    .populate("credentials");
+  const fakeUser = {
+    _id: "62ea48060e07f7fc6c119345",
+    name: "sohag",
+    username: "sohagmahin",
+    credentials: [],
+  };
+  const user = new Promise.resolve(() => fakeUser);
   return user;
 };
 

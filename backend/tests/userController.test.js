@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-// jest.mock("../controller/userController.js");
+jest.mock("../services/userService.js");
 
 describe("Auth test suite.", () => {
   describe("Login test", () => {
@@ -11,7 +11,7 @@ describe("Auth test suite.", () => {
       };
       const res = await request(app).post("/user/login").send(authData);
       expect(res.statusCode).toBe(200);
-      // expect(res.body.access_token).toBeDefined();
+      expect(res.body.access_token).toBeDefined();
     });
 
     test("password missing -> status code should be 400 (Bad request)", async () => {
@@ -32,7 +32,7 @@ describe("Auth test suite.", () => {
       // expect("sohag").toBe("sohag");
       const res = await request(app)
         .post("/user/login")
-        .send({ username: "sohagmahin", password: "sohagmahin@" });
+        .send({ username: "sohagmahin", password: "123456" });
       expect(res.headers["content-type"]).toEqual(
         expect.stringContaining("application/json")
       );
@@ -40,8 +40,38 @@ describe("Auth test suite.", () => {
   });
 
   describe("SignUp test", () => {
-    test("Signup request validation checkup", () => {
-      expect(1).toBe(1);
+    test("check validation -> should return 400(Bad request) and and errors ", async () => {
+      const res = await request(app)
+        .post("/user/signup")
+        .send({ name: "sohag", password: "sohagmahin@" });
+      expect(res.statusCode).toBe(400);
+      expect(res.body.errors.username.msg).toBe(
+        "username is required and should be five character!"
+      );
     });
+
+    test("input existing user -> should return 200 and user already exist! ", async () => {
+      const reqBody = {
+        name: "sohag",
+        username: "sohagmahin",
+        password: "123456",
+      };
+      const res = await request(app).post("/user/signup").send(reqBody);
+      expect(res.statusCode).toBe(500);
+      expect(res.body.message).toBe("Username already exist!");
+    });
+
+    // test("valid input -> should return 201 and success message", async () => {
+    //   const res = await request(app)
+    //     .post("/user/signup")
+    //     .send({ name: "sohag", username: "test2", password: "test2" });
+    //   expect(res.statusCode).toBe(201);
+    //   expect(res.body.message).toBe("Signup success");
+    // });
   });
 });
+
+// input existing user -> should return 200
+// input existing user -> should return -> user already exist!
+// valid input -> should return success message.
+// valid input -> should return status code 201.
