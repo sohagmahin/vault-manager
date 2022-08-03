@@ -5,12 +5,12 @@ const {
 } = require("../helpers/dataEncryption");
 const {
   getUsers,
+  getUsersByUsername,
   getUserByUsername,
   getUserByID,
   saveUser,
   updateUserByID,
   deleteUserByID,
-  getUsersByUsername,
 } = require("../services/userService");
 
 // GET ALL USER
@@ -97,7 +97,7 @@ const signup = async (req, res) => {
     };
     await saveUser(userObject);
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: "Signup success",
     });
   } catch (err) {

@@ -2,6 +2,10 @@ const request = require("supertest");
 const app = require("../app");
 jest.mock("../services/userService.js");
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("Auth test suite.", () => {
   describe("Login test", () => {
     test("valid user -> status code should be 200 and returned object should have jwt token", async () => {
@@ -57,17 +61,17 @@ describe("Auth test suite.", () => {
         password: "123456",
       };
       const res = await request(app).post("/user/signup").send(reqBody);
-      expect(res.statusCode).toBe(500);
+      expect(res.statusCode).toBe(200);
       expect(res.body.message).toBe("Username already exist!");
     });
 
-    // test("valid input -> should return 201 and success message", async () => {
-    //   const res = await request(app)
-    //     .post("/user/signup")
-    //     .send({ name: "sohag", username: "test2", password: "test2" });
-    //   expect(res.statusCode).toBe(201);
-    //   expect(res.body.message).toBe("Signup success");
-    // });
+    test("valid input -> should return 201 and success message", async () => {
+      const res = await request(app)
+        .post("/user/signup")
+        .send({ name: "sohag", username: "test4", password: "test4" });
+      expect(res.statusCode).toBe(201);
+      expect(res.body.message).toBe("Signup success");
+    });
   });
 });
 

@@ -25,6 +25,12 @@ const getUserByID = async (userId) => {
   return user;
 };
 
+//get users by id
+const getUsersByUsername = async (username) => {
+  const users = await User.find({ username: username });
+  return users;
+};
+
 //get single user by username
 const getUserByUsername = async (username) => {
   const user = await User.findOne({ username: username });
@@ -64,6 +70,7 @@ const deleteUserByID = async (userID) => {
 module.exports = {
   getAllUser,
   getUserByID,
+  getUsersByUsername,
   getUserByUsername,
   saveUser,
   updateUserByID,
