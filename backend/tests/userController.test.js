@@ -68,14 +68,9 @@ describe("Auth test suite.", () => {
     test("valid input -> should return 201 and success message", async () => {
       const res = await request(app)
         .post("/user/signup")
-        .send({ name: "sohag", username: "test4", password: "test4" });
+        .send({ name: "New user", username: "newuser", password: "newuser@" });
       expect(res.statusCode).toBe(201);
       expect(res.body.message).toBe("Signup success");
     });
   });
 });
-
-// input existing user -> should return 200
-// input existing user -> should return -> user already exist!
-// valid input -> should return success message.
-// valid input -> should return status code 201.
