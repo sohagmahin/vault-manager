@@ -1,10 +1,14 @@
 const request = require("supertest");
 const app = require("../app");
+const jwt = require("jsonwebtoken");
+
 jest.mock("../services/userService.js");
 
 afterEach(() => {
   jest.clearAllMocks();
 });
+
+//unit test
 
 describe("Auth test suite.", () => {
   describe("Login test", () => {
@@ -72,5 +76,75 @@ describe("Auth test suite.", () => {
       expect(res.statusCode).toBe(201);
       expect(res.body.message).toBe("Signup success");
     });
+  });
+});
+
+describe("User CRUD test suite", () => {
+  it("[GET] should return all user", async () => {
+    const authData = {
+      username: "sohagmahin",
+      password: "123456",
+    };
+    const resLogin = await request(app).post("/user/login").send(authData);
+    expect(resLogin.statusCode).toBe(200);
+    expect(resLogin.body.access_token).toBeDefined();
+
+    const res = await request(app)
+      .get("/user/all")
+      .set("Authorization", resLogin.body.access_token);
+    console.log(res.body.data.length);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.data.length).toBe(3);
+  });
+
+  it("[GET] should return single user", async () => {
+    const authData = {
+      username: "sohagmahin",
+      password: "123456",
+    };
+    const resLogin = await request(app).post("/user/login").send(authData);
+    expect(resLogin.statusCode).toBe(200);
+    expect(resLogin.body.access_token).toBeDefined();
+
+    const res = await request(app)
+      .get("/user/62ea48060e07f7fc6c119345")
+      .set("Authorization", resLogin.body.access_token);
+    // console.log(res.body.data);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.data.username).toBe("sohagmahin");
+  });
+
+  it("[PUT] should be update", async () => {
+    const authData = {
+      username: "sohagmahin",
+      password: "123456",
+    };
+    const resLogin = await request(app).post("/user/login").send(authData);
+    expect(resLogin.statusCode).toBe(200);
+    expect(resLogin.body.access_token).toBeDefined();
+
+    const res = await request(app)
+      .put("/user/62ea48060e07f7fc6c119345")
+      .set("Authorization", resLogin.body.access_token)
+      .send({ name: "sohag update" });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.data.name).toBe("sohag update");
+  });
+
+  it("[DELETE] should be delete", async () => {
+    const authData = {
+      username: "sohagmahin",
+      password: "123456",
+    };
+    const resLogin = await request(app).post("/user/login").send(authData);
+    expect(resLogin.statusCode).toBe(200);
+    expect(resLogin.body.access_token).toBeDefined();
+
+    const res = await request(app)
+      .delete("/user/62ea545f539f5aeca7bd079f")
+      .set("Authorization", resLogin.body.access_token);
+    // console.log(res.body.data);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.message).toBe("delete success");
   });
 });
