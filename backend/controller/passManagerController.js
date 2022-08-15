@@ -136,6 +136,12 @@ const deleteCredential = async (req, res) => {
   try {
     const data = await Credential.findByIdAndDelete({ _id: req.params.id });
 
+    if (!data) {
+      return res
+        .status(400)
+        .json({ message: "Something went wrong. try again!" });
+    }
+
     // decrypt the username and password to plain text
     data.username = decryptData(data.username);
     data.password = decryptData(data.password);
