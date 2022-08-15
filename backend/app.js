@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const passmanagerHandler = require("./router/passManagerRoute");
+const vaultHandler = require("./router/vaultRoute");
 const userHandler = require("./router/userRoute");
 const connectDB = require("./helpers/connectDB");
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use("/passmanager", passmanagerHandler);
+app.use("/vault", vaultHandler);
 app.use("/user", userHandler);
 
 //connect database for run app test suites

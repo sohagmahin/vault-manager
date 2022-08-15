@@ -3,12 +3,12 @@ const router = express.Router();
 
 const authCheck = require("../middleware/common/authCheck");
 const {
-  getAllCredential,
-  getCredential,
-  createCredential,
-  updateCredential,
-  deleteCredential,
-} = require("../controller/passManagerController");
+  getAllVault,
+  getVault,
+  createVault,
+  updateVault,
+  deleteVault,
+} = require("../controller/vaultController");
 
 const {
   credentialValidator,
@@ -16,10 +16,10 @@ const {
 } = require("../middleware/credential/credentialValidator");
 
 // GET all credential
-router.get("/all", authCheck, getAllCredential);
+router.get("/all", authCheck, getAllVault);
 
 // GET single credential
-router.get("/:id", authCheck, getCredential);
+router.get("/:id", authCheck, getVault);
 
 // POST create credential
 router.post(
@@ -27,13 +27,13 @@ router.post(
   authCheck,
   credentialValidator,
   credentialValidatorHandler,
-  createCredential
+  createVault
 );
 
 // PUT credential
-router.put("/:id", authCheck, updateCredential);
+router.put("/:id", authCheck, updateVault);
 
 // DELETE credential
-router.delete("/:id", authCheck, deleteCredential);
+router.delete("/:id", authCheck, deleteVault);
 
 module.exports = router;

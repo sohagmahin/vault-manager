@@ -2,14 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const { encryptData, decryptData } = require("../helpers/dataEncryption");
-const credientialSchema = require("../model/credentialSchema");
-const Credential = mongoose.model("Credential", credientialSchema);
+const vaultSchema = require("../model/vaultSchema");
+const Credential = mongoose.model("Credential", vaultSchema);
 
 const userSchema = require("../model/userSchema");
 const User = mongoose.model("User", userSchema);
 
 // GET all passmanager data
-const getAllCredential = async (req, res) => {
+const getAllVault = async (req, res) => {
   try {
     // Use Populate
     // const data = await Credential.find().populate(
@@ -44,12 +44,18 @@ const getAllCredential = async (req, res) => {
 };
 
 // GET SINGLE CREDENTIAL
-const getCredential = async (req, res) => {
+const getVault = async (req, res) => {
   try {
     const data = await Credential.findOne({ _id: req.params.id }).populate(
       "user",
       "-__v -password"
     );
+
+    if (!data) {
+      return res
+        .status(400)
+        .json({ message: "something went wrong. try again!" });
+    }
 
     data.username = decryptData(data.username);
     data.password = decryptData(data.password);
@@ -68,7 +74,7 @@ const getCredential = async (req, res) => {
 };
 
 // CREATE CREDENTIAL
-const createCredential = async (req, res) => {
+const createVault = async (req, res) => {
   const encrytedUsername = encryptData(req.body.username);
   const enryptedPassword = encryptData(req.body.password);
   const credential = new Credential({
@@ -102,7 +108,7 @@ const createCredential = async (req, res) => {
 };
 
 // UPDATE CREDENTIAL
-const updateCredential = async (req, res) => {
+const updateVault = async (req, res) => {
   const updateData = {
     ...req.body,
   };
@@ -132,7 +138,7 @@ const updateCredential = async (req, res) => {
 };
 
 // DELETE CREDENTIAL
-const deleteCredential = async (req, res) => {
+const deleteVault = async (req, res) => {
   try {
     const data = await Credential.findByIdAndDelete({ _id: req.params.id });
 
@@ -158,9 +164,9 @@ const deleteCredential = async (req, res) => {
 };
 
 module.exports = {
-  getAllCredential,
-  getCredential,
-  createCredential,
-  updateCredential,
-  deleteCredential,
+  getAllVault,
+  getVault,
+  createVault,
+  updateVault,
+  deleteVault,
 };
