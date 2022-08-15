@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = require("../model/userSchema");
-const User = new mongoose.model("User", userSchema);
+const User = require("../model/userModel");
 
 //get all user
 const getUsers = async () => {
@@ -9,7 +8,8 @@ const getUsers = async () => {
       password: 0,
       __v: 0,
     })
-    .populate("credentials");
+    .populate("vaults");
+
   return users;
 };
 
@@ -20,7 +20,7 @@ const getUserByID = async (userId) => {
       password: 0,
       __v: 0,
     })
-    .populate("credentials");
+    .populate("vaults");
   return user;
 };
 

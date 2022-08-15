@@ -2,11 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const { encryptData, decryptData } = require("../helpers/dataEncryption");
-const vaultSchema = require("../model/vaultSchema");
-const Credential = mongoose.model("Credential", vaultSchema);
+const Vault = require("../model/vaultModel");
 
-const userSchema = require("../model/userSchema");
-const User = mongoose.model("User", userSchema);
+const User = require("../model/userModel");
 
 // GET all passmanager data
 const getAllVault = async (req, res) => {
@@ -18,7 +16,7 @@ const getAllVault = async (req, res) => {
     // );
 
     // Use Aggregate
-    const data = await Credential.aggregate([
+    const data = await Vault.aggregate([
       {
         $match: { user: mongoose.Types.ObjectId(req.userId) },
       },
@@ -46,7 +44,7 @@ const getAllVault = async (req, res) => {
 // GET SINGLE CREDENTIAL
 const getVault = async (req, res) => {
   try {
-    const data = await Credential.findOne({ _id: req.params.id }).populate(
+    const data = await Vault.findOne({ _id: req.params.id }).populate(
       "user",
       "-__v -password"
     );
@@ -77,7 +75,7 @@ const getVault = async (req, res) => {
 const createVault = async (req, res) => {
   const encrytedUsername = encryptData(req.body.username);
   const enryptedPassword = encryptData(req.body.password);
-  const credential = new Credential({
+  const credential = new Vault({
     ...req.body,
     username: encrytedUsername,
     password: enryptedPassword,
@@ -91,10 +89,7 @@ const createVault = async (req, res) => {
     data.password = decryptData(data.password);
 
     // add crendential_id in user object
-    await User.updateOne(
-      { _id: req.userId },
-      { $push: { credentials: data._id } }
-    );
+    await User.updateOne({ _id: req.userId }, { $push: { vault: data._id } });
     res.status(200).json({
       data: data,
       message: "Credential was inserted successfully!",
@@ -117,7 +112,7 @@ const updateVault = async (req, res) => {
   if (req.body.password) updateData.password = encryptData(req.body.password);
 
   try {
-    const data = await Credential.findByIdAndUpdate(
+    const data = await Vault.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: updateData },
       { new: true }
@@ -140,7 +135,7 @@ const updateVault = async (req, res) => {
 // DELETE CREDENTIAL
 const deleteVault = async (req, res) => {
   try {
-    const data = await Credential.findByIdAndDelete({ _id: req.params.id });
+    const data = await Vault.findByIdAndDelete({ _id: req.params.id });
 
     if (!data) {
       return res
