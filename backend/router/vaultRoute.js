@@ -11,9 +11,9 @@ const {
 } = require("../controller/vaultController");
 
 const {
-  credentialValidator,
-  credentialValidatorHandler,
-} = require("../middleware/credential/credentialValidator");
+  vaultValidator,
+  vaultValidatorHandler,
+} = require("../middleware/vault/vaultValidator");
 
 // GET all credential
 router.get("/all", authCheck, getAllVault);
@@ -22,13 +22,7 @@ router.get("/all", authCheck, getAllVault);
 router.get("/:id", authCheck, getVault);
 
 // POST create credential
-router.post(
-  "/",
-  authCheck,
-  credentialValidator,
-  credentialValidatorHandler,
-  createVault
-);
+router.post("/", authCheck, vaultValidator, vaultValidatorHandler, createVault);
 
 // PUT credential
 router.put("/:id", authCheck, updateVault);
