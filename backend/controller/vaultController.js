@@ -1,11 +1,4 @@
-const express = require("express");
-const mongoose = require("mongoose");
-
 const { encryptData, decryptData } = require("../helpers/dataEncryption");
-const Vault = require("../model/vaultModel");
-
-const User = require("../model/userModel");
-
 const {
   getAllVaultsData,
   getSingleVault,
@@ -13,6 +6,7 @@ const {
   updateSingleVault,
   deleteSingleVault,
 } = require("../services/vaultService");
+const { addVaultID } = require("../services/userService");
 
 // GET all passmanager data
 const getAllVault = async (req, res) => {
@@ -64,23 +58,23 @@ const getVault = async (req, res) => {
 const createVault = async (req, res) => {
   const encrytedUsername = encryptData(req.body.username);
   const enryptedPassword = encryptData(req.body.password);
-  const newVault = {
+  const vault = {
     ...req.body,
     username: encrytedUsername,
     password: enryptedPassword,
     user: req.userId,
   };
   try {
-    const data = await saveVault(newVault);
+    const newVault = await saveVault(vault);
 
     // decrypt the username and password credential
-    data.username = decryptData(data.username);
-    data.password = decryptData(data.password);
+    newVault.username = decryptData(newVault.username);
+    newVault.password = decryptData(newVault.password);
 
-    // add crendential_id in user object
-    await User.updateOne({ _id: req.userId }, { $push: { vault: data._id } });
+    // add vault-id in user object
+    await addVaultID(req.userId, newVault._id);
     res.status(200).json({
-      data: data,
+      data: newVault,
       message: "Vault was inserted successfully!",
     });
   } catch (err) {

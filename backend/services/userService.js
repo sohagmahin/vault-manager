@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const User = require("../model/userModel");
 
 //get all user
@@ -66,6 +65,11 @@ const deleteUserByID = async (userID) => {
   return deletedUser;
 };
 
+//add new vault id in User object
+const addVaultID = async (userId, vaultId) => {
+  await User.updateOne({ _id: userId }, { $push: { vaults: vaultId } });
+};
+
 module.exports = {
   getUsers,
   getUserByID,
@@ -74,4 +78,5 @@ module.exports = {
   saveUser,
   updateUserByID,
   deleteUserByID,
+  addVaultID,
 };

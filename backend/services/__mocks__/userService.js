@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
-const userSchema = require("../../model/userSchema");
-const User = new mongoose.model("User", userSchema);
+const User = require("../../model/userModel");
 
 //mock user list
 const mockedUser = [
@@ -8,13 +6,13 @@ const mockedUser = [
     _id: "62ea48060e07f7fc6c119345",
     name: "sohag",
     username: "sohagmahin",
-    credentials: [],
+    vaults: [],
   },
   {
     _id: "62ea545f539f5aeca7bd079f",
     name: "test user",
     username: "test",
-    credentials: [],
+    vaults: [],
   },
 ];
 
@@ -66,6 +64,23 @@ const deleteUserByID = async (userID) => {
   return user;
 };
 
+//add new vault id in User object
+const addVaultID = async (userId, vaultId) => {
+  //mongoose formated id
+  const newVaultID = {
+    $oid: vaultId,
+  };
+  const user = mockedUser.find((user) => user._id == userId);
+  const updatedUser = { ...user, vaults: [...user.vaults, newVaultID] };
+
+  //find index
+  const index = mockedUser.indexOf(user);
+  if (index > -1) {
+    mockedUser.splice(index, 1);
+    mockedUser.push(updatedUser);
+  }
+};
+
 module.exports = {
   getUsers,
   getUserByID,
@@ -74,4 +89,5 @@ module.exports = {
   saveUser,
   updateUserByID,
   deleteUserByID,
+  addVaultID,
 };
