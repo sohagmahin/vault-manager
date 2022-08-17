@@ -92,7 +92,6 @@ describe("User CRUD test suite", () => {
     const res = await request(app)
       .get("/user/all")
       .set("Authorization", resLogin.body.access_token);
-    console.log(res.body.data.length);
     expect(res.statusCode).toBe(200);
     expect(res.body.data.length).toBe(3);
   });
