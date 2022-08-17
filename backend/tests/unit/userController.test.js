@@ -1,8 +1,8 @@
 const request = require("supertest");
-const app = require("../app");
+const app = require("../../app");
 const jwt = require("jsonwebtoken");
 
-jest.mock("../services/userService.js");
+jest.mock("../../services/userService.js");
 
 afterEach(() => {
   jest.clearAllMocks();
