@@ -1,33 +1,23 @@
-const express = require("express");
-const mongoose = require("mongoose");
-
 const { encryptData, decryptData } = require("../helpers/dataEncryption");
-const credientialSchema = require("../model/credentialSchema");
-const Credential = mongoose.model("Credential", credientialSchema);
-
-const userSchema = require("../model/userSchema");
-const User = mongoose.model("User", userSchema);
+const {
+  getAllVaultsData,
+  getSingleVault,
+  saveVault,
+  updateSingleVault,
+  deleteSingleVault,
+} = require("../services/vaultService");
+const { addVaultID } = require("../services/userService");
 
 // GET all passmanager data
-const getAllCredential = async (req, res) => {
+const getAllVault = async (req, res) => {
   try {
-    // Use Populate
-    // const data = await Credential.find().populate(
-    //   "user",
-    //   "-__v -password -credentials"
-    // );
-
     // Use Aggregate
-    const data = await Credential.aggregate([
-      {
-        $match: { user: mongoose.Types.ObjectId(req.userId) },
-      },
-    ]);
+    const data = await getAllVaultsData(req.userId);
 
-    data.map((crd) => {
-      crd.username = decryptData(crd.username);
-      crd.password = decryptData(crd.password);
-      return crd;
+    data.map((vault) => {
+      vault.username = decryptData(vault.username);
+      vault.password = decryptData(vault.password);
+      return vault;
     });
     res.status(200).json({
       data,
@@ -38,18 +28,18 @@ const getAllCredential = async (req, res) => {
       message: err.message,
     });
   }
-  // res.status(200).json({
-  //     message: 'This is get'
-  // })
 };
 
 // GET SINGLE CREDENTIAL
-const getCredential = async (req, res) => {
+const getVault = async (req, res) => {
   try {
-    const data = await Credential.findOne({ _id: req.params.id }).populate(
-      "user",
-      "-__v -password"
-    );
+    const data = await getSingleVault(req.params.id);
+
+    if (!data) {
+      return res
+        .status(400)
+        .json({ message: "something went wrong. try again!" });
+    }
 
     data.username = decryptData(data.username);
     data.password = decryptData(data.password);
@@ -62,47 +52,41 @@ const getCredential = async (req, res) => {
       message: err.message,
     });
   }
-  // res.status(200).json({
-  //     message: 'This is get'
-  // })
 };
 
-// CREATE CREDENTIAL
-const createCredential = async (req, res) => {
+// CREATE VAULT
+const createVault = async (req, res) => {
   const encrytedUsername = encryptData(req.body.username);
   const enryptedPassword = encryptData(req.body.password);
-  const credential = new Credential({
+  const vault = {
     ...req.body,
     username: encrytedUsername,
     password: enryptedPassword,
     user: req.userId,
-  });
+  };
   try {
-    const data = await credential.save();
+    const newVault = await saveVault(vault);
 
     // decrypt the username and password credential
-    data.username = decryptData(data.username);
-    data.password = decryptData(data.password);
+    newVault.username = decryptData(newVault.username);
+    newVault.password = decryptData(newVault.password);
 
-    // add crendential_id in user object
-    await User.updateOne(
-      { _id: req.userId },
-      { $push: { credentials: data._id } }
-    );
+    // add vault-id in user object
+    await addVaultID(req.userId, newVault._id);
     res.status(200).json({
-      data: data,
-      message: "Credential was inserted successfully!",
+      data: newVault,
+      message: "Vault was inserted successfully!",
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: "Credentail insertion failed!",
+      message: "Vault insertion failed!",
     });
   }
 };
 
 // UPDATE CREDENTIAL
-const updateCredential = async (req, res) => {
+const updateVault = async (req, res) => {
   const updateData = {
     ...req.body,
   };
@@ -111,12 +95,7 @@ const updateCredential = async (req, res) => {
   if (req.body.password) updateData.password = encryptData(req.body.password);
 
   try {
-    const data = await Credential.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $set: updateData },
-      { new: true }
-    );
-
+    const data = await updateSingleVault(req.params.id, updateData);
     // decrypt the username and password to plain text
     data.username = decryptData(data.username);
     data.password = decryptData(data.password);
@@ -132,9 +111,15 @@ const updateCredential = async (req, res) => {
 };
 
 // DELETE CREDENTIAL
-const deleteCredential = async (req, res) => {
+const deleteVault = async (req, res) => {
   try {
-    const data = await Credential.findByIdAndDelete({ _id: req.params.id });
+    const data = await deleteSingleVault(req.params.id);
+
+    if (!data) {
+      return res
+        .status(400)
+        .json({ message: "Something went wrong. try again!" });
+    }
 
     // decrypt the username and password to plain text
     data.username = decryptData(data.username);
@@ -152,9 +137,9 @@ const deleteCredential = async (req, res) => {
 };
 
 module.exports = {
-  getAllCredential,
-  getCredential,
-  createCredential,
-  updateCredential,
-  deleteCredential,
+  getAllVault,
+  getVault,
+  createVault,
+  updateVault,
+  deleteVault,
 };

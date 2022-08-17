@@ -1,5 +1,7 @@
 const CryptoJS = require("crypto-js");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // bcrypt saltroutnds
 const saltRounds = 10;
@@ -29,4 +31,26 @@ const compareHash = async (plainText, hash) => {
   return await bcrypt.compare(plainText, hash);
 };
 
-module.exports = { encryptData, decryptData, createHash, compareHash };
+// Generate token
+const generateToken = async (user) => {
+  const token = await jwt.sign(
+    {
+      username: user.username,
+      userId: user._id,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+  return token;
+};
+
+module.exports = {
+  encryptData,
+  decryptData,
+  createHash,
+  compareHash,
+  generateToken,
+};

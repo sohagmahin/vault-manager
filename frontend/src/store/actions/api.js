@@ -33,7 +33,7 @@ export const postCredential = (
 ) => {
   console.log("postCredential api calling...");
   console.log(title + description + domain + username + password);
-  return Axios.post("/passmanager", {
+  return Axios.post("/vault", {
     title,
     description,
     domain,
@@ -44,7 +44,7 @@ export const postCredential = (
 
 export const getCredentials = () => {
   console.log("getAllCredential api calling...");
-  return Axios.get("/passmanager/all");
+  return Axios.get("/vault/all");
 };
 
 export const putCredential = (
@@ -57,7 +57,7 @@ export const putCredential = (
 ) => {
   console.log("postCredential api calling...");
   console.log(id + title + description + domain + username + password);
-  return Axios.put(`/passmanager/${id}`, {
+  return Axios.put(`/vault/${id}`, {
     title,
     description,
     domain,
@@ -68,6 +68,6 @@ export const putCredential = (
 
 export const deleteCredentials = (id) => {
   console.log("getAllCredential api calling...");
-  return Axios.delete(`/passmanager/${id}`);
+  return Axios.delete(`/vault/${id}`);
 };
 // http://localhost:3001/passmanager/

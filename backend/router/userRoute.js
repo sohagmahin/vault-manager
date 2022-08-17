@@ -4,7 +4,12 @@ const authCheck = require("../middleware/common/authCheck");
 const {
   loginValidator,
   loginValidatorHandler,
-} = require("../middleware/login/loginValidator");
+} = require("../middleware/auth/loginValidator");
+
+const {
+  signupValidator,
+  signupValidatorHandler,
+} = require("../middleware/auth/singupValidator");
 
 const {
   getAllUser,
@@ -25,7 +30,7 @@ router.get("/:id", authCheck, getUser);
 router.post("/login", loginValidator, loginValidatorHandler, login);
 
 // POST SIGNUP
-router.post("/signup", signup);
+router.post("/signup", signupValidator, signupValidatorHandler, signup);
 
 // UPDATE USER
 router.put("/:id", authCheck, updateUser);

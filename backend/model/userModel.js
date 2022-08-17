@@ -13,12 +13,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  credentials: [
+  vaults: [
     {
       type: mongoose.Types.ObjectId,
-      ref: "Credential",
+      ref: "Vault",
     },
   ],
 });
-
-module.exports = userSchema;
+const userModel = mongoose.model("User", userSchema);
+module.exports = userModel;
