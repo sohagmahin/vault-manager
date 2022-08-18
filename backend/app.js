@@ -5,8 +5,9 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const passmanagerHandler = require("./router/passManagerRoute");
+const vaultHandler = require("./router/vaultRoute");
 const userHandler = require("./router/userRoute");
+const connectDB = require("./helpers/connectDB");
 
 // enable dotenv
 dotenv.config();
@@ -14,15 +15,12 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-// connect mongoDB
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => console.log("MongoDB connected successfully!"))
-  .catch((err) => console.log(err));
-
 // routes
-app.use("/passmanager", passmanagerHandler);
+app.use("/vault", vaultHandler);
 app.use("/user", userHandler);
+
+//connect database for run app test suites
+connectDB();
 
 // default error handler
 const errorHandler = (err, req, res, next) => {
@@ -55,7 +53,4 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 
-// start server
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on ${process.env.PORT} port`);
-});
+module.exports = app;
