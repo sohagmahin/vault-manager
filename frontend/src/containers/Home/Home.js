@@ -17,6 +17,7 @@ function Home() {
   useEffect(() => {
     dispatch(getAllCredentials());
   }, []);
+
   useEffect(() => {
     if (!data) return;
     console.log("====vault data====");
@@ -34,7 +35,7 @@ function Home() {
         {/* show error toast message -/DELETE/- */}
         {errToastMsg ? errorToast(errToastMsg, () => setErrToastMsg("")) : null}
       </div>
-      <div className="flex gap-3 m-2 flex-wrap flex-col sm:flex-row">
+      <div className="flex gap-3 m-2 flex-wrap flex-col justify-center sm:flex-row">
         {vaultData?.map((credential) => {
           return (
             <CredentialCard
