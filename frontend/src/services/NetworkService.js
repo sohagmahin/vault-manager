@@ -8,8 +8,8 @@ import { LOCAL_AUTH_KEY } from "../constants/index";
 
 // const devURL = "http://localhost:3001";
 const instance = axios.create({
-  baseURL: devURL,
-  // baseURL: "",
+  // baseURL: devURL,
+  baseURL: "",
   // timeout: 2500,
 });
 
