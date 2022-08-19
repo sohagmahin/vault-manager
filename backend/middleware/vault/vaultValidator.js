@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator");
 
-const credentialValidator = [
+const vaultValidator = [
   check("domain").isLength({ min: 1 }).withMessage("Domain name is required!"),
 
   check("username").isLength({ min: 1 }).withMessage("Username is required!"),
@@ -8,7 +8,7 @@ const credentialValidator = [
   check("password").isLength({ min: 1 }).withMessage("Password is required!"),
 ];
 
-const credentialValidatorHandler = function (req, res, next) {
+const vaultValidatorHandler = function (req, res, next) {
   const errors = validationResult(req);
   const mappedErrors = errors.mapped();
 
@@ -23,6 +23,6 @@ const credentialValidatorHandler = function (req, res, next) {
 };
 
 module.exports = {
-  credentialValidator,
-  credentialValidatorHandler,
+  vaultValidator,
+  vaultValidatorHandler,
 };

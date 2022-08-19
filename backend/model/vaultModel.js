@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const credentialSchema = new mongoose.Schema({
+const vaultSchema = new mongoose.Schema({
   title: {
     type: String,
   },
@@ -24,4 +24,6 @@ const credentialSchema = new mongoose.Schema({
   },
 });
 
-module.exports = credentialSchema;
+const vaultModel = mongoose.model("Vault", vaultSchema);
+
+module.exports = vaultModel;

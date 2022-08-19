@@ -6,7 +6,7 @@ import { LOCAL_AUTH_KEY } from "../constants/index";
 
 // const baseURL = process.env.REACT_APP_HOST || "http://localhost:3001";
 
-const devURL = "http://localhost:3001";
+// const devURL = "http://localhost:3001";
 const instance = axios.create({
   baseURL: devURL,
   // baseURL: "",
