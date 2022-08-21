@@ -1,9 +1,33 @@
-🚧 _Under development_ 🚧
-# Vault manger -(`password manager`).
+🚧 _Under development_ 🚧≈
+## Vault manger 
+   ### Simple password manager with minimal feature!
+   ==========================================
 
-Vault manager by `express and NodeJS`. It's a simple and lightweight password manager, which is powered by `CryptoJS`.
-
-This project made for `fun!!`:blush:
+ ### Technology:
+ #### Frontend:
+ ```
+ React,
+ Redux,
+ Tailwind-css,
+ Daisy UI
+ ```
+ 
+  #### Backend:
+ ```
+ ExpressJS
+ MongoDB
+ ```
+ 
+ #### Core Library for backend
+ ```
+    bcrypt,
+    cors,
+    crypto-js,
+    express-validator,
+    jsonwebtoken,
+    mongoose
+ 
+ ```
 
 Run Project:
 
