@@ -6,16 +6,16 @@
  ### Technology:
  #### Frontend:
  ```
- React,
- Redux,
- Tailwind-css,
- Daisy UI
+    React,
+    Redux,
+    Tailwind-css,
+    Daisy UI
  ```
  
   #### Backend:
  ```
- ExpressJS
- MongoDB
+    ExpressJS
+    MongoDB
  ```
  
  #### Core Library for backend
