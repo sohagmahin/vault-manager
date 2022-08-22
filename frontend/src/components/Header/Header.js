@@ -7,15 +7,15 @@ const Header = () => {
   return (
     <div className="navbar bg-base-100 shadow-md justify-between">
       <div className="flex">
-        <a className="btn btn-ghost normal-case text-xl">
+        <Link to={"/"} className="btn btn-ghost normal-case text-xl">
           {width > 640 ? "Vault Manager" : "VM"}
-        </a>
+        </Link>
       </div>
       <div className="flex-none gap-2 px-2">
         <div className="form-control">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search by title"
             className="input input-bordered"
           />
         </div>
