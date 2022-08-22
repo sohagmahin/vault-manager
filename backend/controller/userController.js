@@ -58,6 +58,7 @@ const login = async (req, res) => {
         const token = await generateToken(user);
         res.status(200).json({
           access_token: token,
+          id: user._id,
           message: "Login successful!",
         });
       } else {

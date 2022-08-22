@@ -71,3 +71,13 @@ export const deleteCredentials = (id) => {
   return Axios.delete(`/vault/${id}`);
 };
 // http://localhost:3001/passmanager/
+
+export const getProfile = (id) => {
+  return Axios.get(`/user/${id}`);
+};
+
+export const putProfile = (id, data) => {
+  return Axios.put(`/user/${id}`, {
+    ...data,
+  });
+};
