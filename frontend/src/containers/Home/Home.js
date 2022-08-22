@@ -20,8 +20,6 @@ function Home() {
 
   useEffect(() => {
     if (!data) return;
-    console.log("====vault data====");
-    console.log(data);
     setVaultData(data);
   }, [data]);
   return (

@@ -12,6 +12,11 @@ export const VAULT_FAIL = "VAULT_FAIL";
 export const ALL_VAULT_SUCCESS = "ALL_VAULT_SUCCESS";
 export const TEMP_VAULT_SUCCESS = "TEMP_VAULT_SUCCESS";
 
+//profile
+export const PROFILE_START = "PROFILE_START";
+export const PROFILE_SUCCESS = "PROFILE_SUCCESS";
+export const PROFILE_FAIL = "PROFILE_FAIL";
+
 // error modal
 export const OPEN_ERROR_MODAL = "OPEN_ERROR_MODAL";
 export const CLOSE_ERROR_MODAL = "CLOSE_ERROR_MODAL";

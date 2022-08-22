@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import windowDimention from "../../hooks/useWindowSize";
 const Header = () => {
   const { width } = windowDimention();
@@ -29,16 +30,24 @@ const Header = () => {
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
+              {/* <a className="justify-between" href="#profile">
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </a> */}
+              <Link to={"/profile"}>
+                Profile
+                <span className="badge">New</span>
+              </Link>
             </li>
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
+              <Link
+                to={"/auth"}
+                onClick={() => {
+                  localStorage.clear();
+                }}
+              >
+                Logout
+              </Link>
             </li>
           </ul>
         </div>

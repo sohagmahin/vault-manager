@@ -1,5 +1,4 @@
-import { LOCAL_AUTH_KEY } from "../../../constants/keys";
-import { storeLocalData } from "../../../services/localServices";
+import { TOKEN, USER_ID } from "../../../constants/keys";
 import * as actionTypes from "../actionTypes";
 import { postSingIn, postSingUp } from "../api";
 
@@ -29,7 +28,9 @@ export const singIn = (userName, password) => {
       let response = await postSingIn(userName, password);
       console.log("===sing-in response====");
       console.log(response.data);
-      storeLocalData(LOCAL_AUTH_KEY, JSON.stringify(response.data));
+      // storeLocalData(LOCAL_AUTH_KEY, JSON.stringify(response.data));
+      localStorage.setItem(TOKEN, JSON.stringify(response.data.access_token));
+      localStorage.setItem(USER_ID, JSON.stringify(response.data.id));
       return dispatch(authSuccess(response.data));
     } catch (err) {
       return dispatch(authFail({ message: err.message }));
