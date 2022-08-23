@@ -67,4 +67,6 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
       3. ✏️ Type in terminal:
 
             npm run dev or yarn run dev
+### 📹 Demo
+
 
