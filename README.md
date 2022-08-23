@@ -7,7 +7,7 @@ This is a self-learning project. So don’t aspect all functionality which has a
 So, _What I did this project_? 
 
 `In Backend:` 
-I created a user module and vault module. so users can able signup, sign in, and manage their profile.  And also store their vaults by vault module. And all important vault data are encrypted by cryptoJS(symmetric-key algorithm) and user module data are encrypted by bcrypt package. So the data are well protected on the database.
+Created user module and vault module. so users can able signup, sign in, and manage their profile.  And also store their vaults by vault module. And all important vault data are encrypted by cryptoJS(symmetric-key algorithm) and user module data are encrypted by bcrypt package. So the data are well protected on the database.
 
 `In front-end:` 
 Made a minimal and user-friendly interface by React and daisyUI(tailwind-based CSS framework). All data are coming from the backend via REST-FULL API. And I used Redux for state management. I know this is overwhelming to use redux in a small project like this. but for learning purposes, I did that.
