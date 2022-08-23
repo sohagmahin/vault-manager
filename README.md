@@ -67,6 +67,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
       3. ✏️ Type in terminal:
 
             npm run dev or yarn run dev
-### 📹 Demo
+### 📹 Live Demo link
+  [Click here](https://vault-manager.herokuapp.com/) (`it may slow to response for the 1st time.`)
 
 
