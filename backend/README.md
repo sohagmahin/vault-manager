@@ -3,12 +3,12 @@
 Simple password manager by expressJS.
 
 - [x] User CRUD
-- [x] Password manager CRUD
+- [x] Vault CRUD
 - [x] Encrypt and Decrypt data by CryptoJS libary
 - [x] Relation with user and credential(schema). [One to One, One to many]
 - [x] Hash password by bcrypt libary.
 - [x] Token based authorization by jwt
-- [x] Request validation by express-validator
+- [x] Validate request by express-validator
 
 ## User Schema
 
@@ -27,7 +27,7 @@ Simple password manager by expressJS.
       }
     }
 
-## Credential Schema
+## Vault Schema
 
     {
         title: {
