@@ -1,12 +1,5 @@
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-
-🚧 _Under development_ 🚧≈
-## Vault manger
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+## 🔐 Vault manger
 
 Vault manager is a simple and minimal password manager. Developed by MERN Stack.
 
@@ -22,19 +15,15 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
    
 
  ### Technology:
- #### Frontend:
- ```
-    React,
-    Redux,
-    Tailwind-css,
-    Daisy UI
- ```
- 
-  #### Backend:
- ```
-    ExpressJS
-    MongoDB
- ```
+ ### Frontend: 
+ ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+ ### Backend
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
  
  #### Core Library for backend
  ```
@@ -47,7 +36,14 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
  
  ```
  
- ### Working progress
+ ### ✅ Done
+ - [x] USER CRUD `frontend + backend`
+ - [x] Vaults CRUD `frontend + backend`
+ - [x] Profile Page `frontend`
+ - [x] Forget password `frontend`
+ - [x] Logout `frontend`
+ 
+ ### 🏗️ Working progress
  - [x]  add user profile
  - [ ]  delete profile
  - [ ]  add profile photo
@@ -57,15 +53,18 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
  - [ ]  Support PWA
  - [ ]  `Dockerize` the app
 
-Run Project:
+### 🚀 Run Project:
 
-1. Set up `.env` from /backend: 
+      1. 🔨 Set up .env file from 📁 /backend :  
 
-   Rename `.env.example` to `.env` and update by your data.
+            Rename .env.example to .env and update by your data.
 
-2. Install Yarn globally `(optional)`:
-  `sudo npm install -g yarn`
+      2. 💿 Install Yarn globally `(optional)`:
 
-3. Type in terminal:
+            sudo npm install -g yarn
 
-   `npm run dev` or `yarn run dev`
+      3. ✏️ Type in terminal:
+
+            npm run dev or yarn run dev
+
+🚧 _Under development_ 🚧≈
