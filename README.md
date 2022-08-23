@@ -19,6 +19,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![daisyUI](https://img.shields.io/badge/daisy--UI-Based%20on%20Tailwind%20CSS-green?style=for-the-badge&logo=appveyor)
 
  ### Backend
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
@@ -67,4 +68,3 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 
             npm run dev or yarn run dev
 
-🚧 _Under development_ 🚧≈
