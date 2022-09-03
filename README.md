@@ -68,6 +68,6 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 
             npm run dev or yarn run dev
 ### 📹 Live Demo link
-  [Click here](https://vault-manager.herokuapp.com/) (`it may slow to response for the 1st time.`)
+  [Click here](https://vault-manager.herokuapp.com/) (`It may slow to response for the 1st time.`)
 
 
