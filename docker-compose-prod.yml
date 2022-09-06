@@ -5,18 +5,13 @@ services:
     build: ./frontend
     ports:
       - 80:3000
-    volumes:
-      - ./frontend:/app
 
   api:
     build: ./backend
     ports:
       - 3001:3001
-    volumes:
-      - ./backend:/app
     environment:
       DB_URL: mongodb://db/vaults
-    command: npm run dev
 
   db:
     image: mongo:4.0-xenial
