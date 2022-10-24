@@ -57,7 +57,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 - [ ] Show proper validation message and error (backend)
 - [ ] add forget password (frontend + backend)
 - [ ] Support PWA
-- [ ] `Dockerize` the app
+- [x] `Dockerize` the app
 
 ### 🚀 Run Project:
 
