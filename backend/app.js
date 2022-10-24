@@ -32,25 +32,10 @@ const errorHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
-const __absolutePath = path.resolve();
-const __normalizePath = path.normalize(path.join(__absolutePath, "/.."));
-
-// console.log(path.join(__normalizePath, "/frontend/build"));
-// console.log(path.resolve(__normalizePath, "frontend", "build", "index.html"));
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__normalizePath, "/frontend/build")));
-  app.get("*", (req, res) => {
-    return res.sendFile(
-      path.resolve(__normalizePath, "frontend", "build", "index.html")
-    );
-  });
-} else {
-  app.use("/", (req, res) =>
-    res.status(200).json({
-      message: "Hello word",
-    })
-  );
-}
+app.use("/", (req, res) =>
+  res.status(200).json({
+    message: "Hello word",
+  })
+);
 
 module.exports = app;

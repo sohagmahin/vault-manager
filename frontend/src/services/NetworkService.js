@@ -3,11 +3,11 @@ import store from "../store/index";
 import { openErrorModal } from "../store/actions/index";
 import { TOKEN } from "../constants/keys";
 
-// const baseURL = process.env.REACT_APP_HOST || "http://localhost:3001";
+const baseURL = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
-const devURL = "http://localhost:3001";
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV === "development" ? devURL : "",
+  // baseURL: "http://localhost:3001",
+  baseURL: baseURL,
   // baseURL: "",
   // timeout: 2500,
 });

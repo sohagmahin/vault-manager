@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/sohagmahin/express-password-manager#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
@@ -37,6 +37,7 @@
     "@types/jest": "^28.1.6",
     "@types/supertest": "^2.0.12",
     "jest": "^28.1.3",
+    "nodemon": "^2.0.19",
     "supertest": "^6.2.4"
   }
 }
