@@ -59,7 +59,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 - [ ] Support PWA
 - [x] `Dockerize` the app
 
-### 🚀 Run Project:
+### 🚀 Basic Setup:
 
       1. 🔨 Set up .env file from 📁 /backend :
 
@@ -69,22 +69,15 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 
             sudo npm install -g yarn
 
-      3. ✏️ Type in terminal:
+      3. 💿 Install dependencies`:
 
-            npm run dev or yarn run dev
+            Via npm: 
+            cd backend ->  npm install 
+            cd frontend -> npm install
 
-### 🚀 Run Project By Docker:
+### 🚀 Run Project By Docker container:
 
-      1. 🔨 Set up .env file from 📁 /backend :
-
-            Rename .env.example to .env and update by your data.
-
-      2. 💿 Install dependencies`:
-
-            cd backend -> npm install or yarn
-            cd frontend -> npm install or yarn
-
-      3. ✏️ Type in terminal:
+      1. ✏️ Type in terminal:
 
             docker compose up -d
 
