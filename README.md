@@ -59,7 +59,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 - [ ] Support PWA
 - [x] `Dockerize` the app
 
-### 🚀 Basic Setup:
+### 🔌 Basic Setup:
 
       1. 🔨 Set up .env file from 📁 /backend :
 
