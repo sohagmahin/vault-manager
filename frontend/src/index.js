@@ -6,7 +6,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import store from "./store";
+import { store } from "./app/store";
 
 const app = (
   <React.StrictMode>

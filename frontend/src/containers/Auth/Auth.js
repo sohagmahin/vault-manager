@@ -1,7 +1,11 @@
 // external imports
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../features/auth/authApi";
 import { errorToast, successToast } from "../../shared/utility";
 
 // internal imports
@@ -14,8 +18,6 @@ const AuthMode = Object.freeze({
 });
 
 const Auth = () => {
-  const dispatch = useDispatch();
-
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,19 @@ const Auth = () => {
   const [successToastMsg, setSuccessToastMsg] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
 
+  const navigate = useNavigate();
+
+  const [
+    register,
+    {
+      data: rgData,
+      isLoading: rgIsLoading,
+      error: rgError,
+      isError: rgIsError,
+    },
+  ] = useRegisterMutation();
+  const [login, { loginData, loginIsLoading, loginError, loginIsError }] =
+    useLoginMutation();
   const onChangeHandler = (event, type) => {
     let value = event.target.value;
     if (type === "username") {
@@ -49,34 +64,44 @@ const Auth = () => {
 
     console.log(userName + password);
     if (AuthMode.SINGIN === currentAuthMode) {
-      let response = dispatch(actions.singIn(userName, password));
-      response.then((result) => {
-        if (result.type === AUTH_SUCCESS) {
-          // window.location = "/";
-          setRedirectPath("/");
-          setErrToastMsg("");
-        } else if (result.type === AUTH_FAIL) {
-          setErrToastMsg("Login failed!");
-        }
-      });
+      login({ username: userName, password });
     } else {
-      let response = dispatch(actions.singUp(name, userName, password));
-      response.then((result) => {
-        if (result.type === AUTH_SUCCESS) {
-          setCurrentAuthMode(AuthMode.SINGIN);
-          setSuccessToastMsg("Registration successfull!");
-          setErrToastMsg("");
-        } else if (result.type === AUTH_FAIL) {
-          setErrToastMsg("Registration failed!");
-          setSuccessToastMsg("");
-        }
-      });
+      register({ name, username: userName, password });
     }
   };
 
+  useEffect(() => {
+    console.log(rgData);
+    if (AuthMode.SINGUP === currentAuthMode) {
+      if (rgIsError) {
+        setErrToastMsg(rgError?.data?.message);
+      } else if (rgData?.message === "Signup success") {
+        setCurrentAuthMode(AuthMode.SINGIN);
+        setSuccessToastMsg("Registration successfull!");
+        setErrToastMsg("");
+      }
+    } else {
+      if (loginError) {
+        setErrToastMsg(loginIsError?.data.message);
+      } else if (loginData?.accessToken && loginData?.id) {
+        // setRedirectPath("/");
+        setErrToastMsg("");
+        navigate("/");
+      }
+    }
+  }, [
+    rgData,
+    rgError,
+    loginData,
+    loginError,
+    navigate,
+    currentAuthMode,
+    loginIsError,
+    rgIsError,
+  ]);
+
   return (
     <div className="hero min-h-screen bg-base-200">
-      {redirectPath !== "" ? <Navigate to="/" /> : null}
       {currentAuthMode === AuthMode.SINGIN
         ? successToastMsg
           ? successToast(successToastMsg, () => setSuccessToastMsg(""))
