@@ -7,14 +7,11 @@ USER app
 
 WORKDIR /app
 
-ENV NODE_ENV=dev
-
-COPY package*.json .env ./
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
-
 
 EXPOSE 3001
 

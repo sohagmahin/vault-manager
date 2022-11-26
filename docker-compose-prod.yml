@@ -9,6 +9,8 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 80:80
+    env_file:
+      - .env.frontend
     restart: unless-stopped
 
   api:
@@ -19,6 +21,8 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 3001:3001
+    env_file:
+      - .env.backend
     environment:
       DB_URL: mongodb://db/vaults
     restart: unless-stopped
