@@ -9,6 +9,7 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 80:80
+    restart: unless-stopped
 
   api:
     depends_on:
@@ -20,6 +21,7 @@ services:
       - 3001:3001
     environment:
       DB_URL: mongodb://db/vaults
+    restart: unless-stopped
 
   db:
     image: mongo:4.0-xenial
@@ -27,6 +29,7 @@ services:
       - 27017:27017
     volumes:
       - vaults:/data/db
+    restart: unless-stopped
 
 volumes:
   vaults:
