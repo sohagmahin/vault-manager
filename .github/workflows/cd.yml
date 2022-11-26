@@ -23,13 +23,13 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./frontend
-          file: Dockerfile.prod
+          file: ./frontend/Dockerfile.prod
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vault-web:latest
       - name: Api - Build and push
         uses: docker/build-push-action@v3
         with:
           context: ./backend
-          file: Dockerfile.prod
+          file: ./backend/Dockerfile.prod
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vault-api:latest
