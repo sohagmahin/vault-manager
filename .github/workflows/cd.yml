@@ -2,8 +2,7 @@ name: build and push docker images to docker-hub
 
 on:
   push:
-    branches:
-      - "release"
+    branches: [release]
 
 jobs:
   build:
