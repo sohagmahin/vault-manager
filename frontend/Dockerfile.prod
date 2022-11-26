@@ -1,0 +1,33 @@
+# stage 1
+FROM node:14.16.0-alpine3.13 as builder
+
+RUN addgroup app && adduser -S -G app app
+RUN mkdir /app && chown app:app /app
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+
+# stage 2
+
+FROM nginx:alpine
+
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy from the stahg 1
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
