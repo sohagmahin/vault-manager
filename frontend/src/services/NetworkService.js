@@ -3,7 +3,7 @@ import store from "../store/index";
 import { openErrorModal } from "../store/actions/index";
 import { TOKEN } from "../constants/keys";
 
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+const baseURL = process.env.REACT_APP_API_URL;
 
 const instance = axios.create({
   // baseURL: "http://localhost:3001",
