@@ -72,8 +72,8 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 
       3. 💿 Install dependencies`:
 
-            Via npm: 
-            cd backend ->  npm install 
+            Via npm:
+            cd backend ->  npm install
             cd frontend -> npm install
 
 ### 🚀 Run Project By Docker container:
@@ -89,3 +89,5 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 [Click here](https://vault-manager.herokuapp.com/) (`It may slow to response for the 1st time.`)
 
 [![Alt text](https://user-images.githubusercontent.com/35423413/188283404-24401770-b874-44a2-b41e-994468982d30.png)](https://www.youtube.com/watch?v=RMCiZWTUtfA)
+
+## test
