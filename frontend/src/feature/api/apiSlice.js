@@ -4,7 +4,7 @@ import { TOKEN } from "../../constants/keys";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
+    baseUrl: "http://localhost:3001",
     prepareHeaders: async (headers, { getState, endpoint }) => {
       let token = localStorage.getItem(TOKEN);
       if (token) {

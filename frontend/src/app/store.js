@@ -6,7 +6,7 @@ const store = configureStore({
   reducer: { [apiSlice.reducerPath]: apiSlice.reducer, auth: authSliceReducer },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (geDefaultMiddlewares) =>
-    geDefaultMiddlewares().concat(...apiSlice.middleware),
+    geDefaultMiddlewares().concat(apiSlice.middleware),
 });
 
 export default store;

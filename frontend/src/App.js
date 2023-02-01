@@ -2,10 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
-import Auth from "./containers/Auth/Auth";
 import Footer from "./components/Footer/Footer";
 import Home from "./containers/Home/Home";
 import ProfilePage from "./containers/Profile/profile";
+import Register from "./containers/Auth/register";
+import Login from "./containers/Auth/Login";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route exact path="/auth" element={<Auth />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
         <Route exact path="/profile" element={<ProfilePage />} />
       </Routes>
       <Footer />

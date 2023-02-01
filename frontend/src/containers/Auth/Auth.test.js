@@ -1,5 +1,5 @@
 import { screen, cleanup } from "@testing-library/react";
-import Auth from "./Auth";
+import Auth from "./Login";
 import userEvent from "@testing-library/user-event";
 import { renderWithRedux } from "../../test-utils";
 
