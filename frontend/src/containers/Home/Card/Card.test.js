@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { renderWithRedux } from "../../../test-utils";
-import CredentialCard from "./CredentialCard";
+import Card from "./Card";
 
-describe("Crendialtial Card Test", () => {
+describe("Vaul Card Test", () => {
   test("passing data and check it rendered with those data or not", async () => {
     const data = {
       id: "123456",
@@ -14,7 +14,7 @@ describe("Crendialtial Card Test", () => {
       // setSuccessToastMsg: any;
       // setErrToastMsg: any;
     };
-    renderWithRedux(<CredentialCard {...data} />);
+    renderWithRedux(<Card {...data} />);
     expect(screen.getByText(/Facebook Meta/)).toBeInTheDocument();
     expect(screen.getByText(/Business account credential/)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/www.facebook.com/)).toBeInTheDocument();

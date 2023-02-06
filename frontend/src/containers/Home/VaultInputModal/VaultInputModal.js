@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  addCredential,
-  getAllCredentials,
-  updateCredential,
-} from "../../../store/actions/index";
 import { errorToast, VaultInputMode } from "../../../shared/utility";
 import CustomInput from "../../../components/UI/Input/CustomInput";
-import {
-  TEMP_VAULT_SUCCESS,
-  VAULT_FAIL,
-} from "../../../store/actions/actionTypes";
 import { successToast } from "../../../shared/utility";
+import {
+  useAddVaultMutation,
+  useUpdateVaultMutation,
+} from "../../../feature/vault/vaultApi";
 
 function VaultInputModal({
   showModal,
@@ -28,7 +22,37 @@ function VaultInputModal({
   const [successToastMsg, setSuccessToastMsg] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
 
-  const dispatch = useDispatch();
+  const [
+    addVault,
+    { data: addedVault, isLoading: isAddLoading, error: errorAddVault },
+  ] = useAddVaultMutation();
+  const [
+    updateVault,
+    { data: updatedVault, isLoading: isUpdateLoading, error: errorUpdateVault },
+  ] = useUpdateVaultMutation();
+
+  useEffect(() => {
+    let error = errorAddVault ?? errorUpdateVault ?? undefined;
+    let data = addedVault ?? updatedVault ?? undefined;
+
+    if (data) {
+      setSuccessToastMsg(data?.message);
+      setErrToastMsg("");
+    }
+
+    if (error) {
+      if (error?.data?.errors) {
+        let objectKey = Object.keys(error.data.errors)[0];
+        let message = error.data.errors[objectKey].msg;
+        setErrToastMsg(message);
+      } else {
+        setErrToastMsg(error?.data?.data);
+      }
+
+      setSuccessToastMsg("");
+    }
+  }, [errorAddVault, errorUpdateVault, addedVault, updatedVault]);
+
   const onChangeHandler = (event, type) => {
     // event.preventDefault();
     let value = event.target.value;
@@ -60,43 +84,32 @@ function VaultInputModal({
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log("on submit clicked!!");
     if (VaultInputMode.ADD === selectedVaultMode) {
-      let response = dispatch(
-        addCredential(title, description, domain, userName, password)
-      );
-      response.then((result) => {
-        if (result.type === TEMP_VAULT_SUCCESS) {
-          //  refetch the all data
-          setSuccessToastMsg("Add Successull!");
-          dispatch(getAllCredentials());
-        } else if (result.type === VAULT_FAIL) {
-          setErrToastMsg("Add failed!");
-        }
-      });
+      let payload = {
+        title,
+        description,
+        domain,
+        username: userName,
+        password,
+      };
+      addVault(payload);
     } else if (VaultInputMode.UPDATE === selectedVaultMode) {
-      //update dispatch
-      let response = dispatch(
-        updateCredential(crId, title, description, domain, userName, password)
-      );
-      response.then((result) => {
-        if (result.type === TEMP_VAULT_SUCCESS) {
-          //  refetch the all data
-          setSuccessToastMsg("Update succefull!");
-          dispatch(getAllCredentials());
-        } else if (result.type === VAULT_FAIL) {
-          setErrToastMsg("Update failed!");
-        }
-      });
+      let payload = {
+        title,
+        description,
+        domain,
+        username: userName,
+        password,
+      };
+      updateVault(crId, payload);
     }
   };
 
   useEffect(() => {
     if (!updateData) return;
 
-    console.log({ ...updateData });
     //filled up the form
-    setCrId(updateData.id);
+    setCrId(updateData._id);
     setTitle(updateData.title);
     setDescription(updateData.description);
     setDomain(updateData.domain);
@@ -149,8 +162,14 @@ function VaultInputModal({
 
         <input
           type="submit"
-          className="btn btn-primary mt-4"
-          value={selectedVaultMode === VaultInputMode.ADD ? "Add" : "Update"}
+          className="mt-4 btn btn-primary"
+          value={
+            isAddLoading || isUpdateLoading
+              ? "loading..."
+              : selectedVaultMode === VaultInputMode.ADD
+              ? "Add"
+              : "Update"
+          }
         />
       </form>
     </div>
@@ -170,11 +189,11 @@ function VaultInputModal({
           ? successToast(successToastMsg, () => setSuccessToastMsg(""))
           : null}
         {errToastMsg ? errorToast(errToastMsg, () => setErrToastMsg("")) : null}
-        <div className="modal-box relative">
+        <div className="relative modal-box">
           <label
             onClick={() => setShowModal(false)}
             for="my-modal-3"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="absolute btn btn-sm btn-circle right-2 top-2"
           >
             ✕
           </label>

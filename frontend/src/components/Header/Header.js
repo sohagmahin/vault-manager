@@ -5,9 +5,9 @@ const Header = () => {
   const { width } = windowDimention();
 
   return (
-    <div className="navbar bg-base-100 shadow-md justify-between">
+    <div className="justify-between shadow-md navbar bg-base-100">
       <div className="flex">
-        <Link to={"/"} className="btn btn-ghost normal-case text-xl">
+        <Link to={"/"} className="text-xl normal-case btn btn-ghost">
           {width > 640 ? "Vault Manager" : "VM"}
         </Link>
       </div>
@@ -27,7 +27,7 @@ const Header = () => {
           </label>
           <ul
             tabIndex="0"
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
               {/* <a className="justify-between" href="#profile">
@@ -41,7 +41,7 @@ const Header = () => {
             </li>
             <li>
               <Link
-                to={"/auth"}
+                to={"/login"}
                 onClick={() => {
                   localStorage.clear();
                 }}

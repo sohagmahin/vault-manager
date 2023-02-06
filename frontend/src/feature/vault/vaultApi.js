@@ -3,7 +3,10 @@ const { apiSlice } = require("../api/apiSlice");
 const vaultApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllVault: builder.query({
-      query: () => "/vault/all",
+      query: () => ({
+        url: "/vault/all",
+        method: "GET",
+      }),
     }),
     addVault: builder.mutation({
       query: (data) => ({

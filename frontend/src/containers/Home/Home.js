@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import withErrorModal from "../../components/HOC/withErrorModal/withErrorModal";
+import React, { useState } from "react";
 import CreateButton from "./CreateButton";
-import { getAllCredentials } from "../../store/actions/index";
-import CredentialCard from "./CredentialCard/CredentialCard";
+import Card from "./Card/Card";
 import { successToast, errorToast } from "../../shared/utility";
+import { useGetAllVaultQuery } from "../../feature/vault/vaultApi";
 
 function Home() {
-  const dispatch = useDispatch();
-  const [vaultData, setVaultData] = useState([]);
   const [successToastMsg, setSuccessToastMsg] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
 
-  const data = useSelector((state) => state.vault.data);
+  const { data, isLoading, isError, error } = useGetAllVaultQuery() || {};
+  const { data: vaults, message } = data || {};
 
-  useEffect(() => {
-    dispatch(getAllCredentials());
-  }, []);
+  if (isLoading)
+    return <div className="flex items-center justify-center">Loading....</div>;
 
-  useEffect(() => {
-    if (!data) return;
-    setVaultData(data);
-  }, [data]);
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <>
       <div className="flex justify-center">
@@ -33,27 +29,23 @@ function Home() {
         {/* show error toast message -/DELETE/- */}
         {errToastMsg ? errorToast(errToastMsg, () => setErrToastMsg("")) : null}
       </div>
-      <div className="flex gap-3 m-2 flex-wrap flex-col justify-center sm:flex-row">
-        {vaultData?.map((credential) => {
-          return (
-            <CredentialCard
-              id={credential._id}
-              title={credential.title}
-              description={credential.description}
-              domain={credential.domain}
-              username={credential.username}
-              password={credential.password}
-              successToastMsg={successToastMsg}
-              errToastMsg={errToastMsg}
-              setSuccessToastMsg={setSuccessToastMsg}
-              setErrToastMsg={setErrToastMsg}
-            />
-          );
-        })}
+      <div className="flex flex-col flex-wrap justify-center gap-3 m-2 sm:flex-row">
+        {vaults &&
+          vaults?.map((vault) => {
+            return (
+              <Card
+                data={vault}
+                successToastMsg={successToastMsg}
+                errToastMsg={errToastMsg}
+                setSuccessToastMsg={setSuccessToastMsg}
+                setErrToastMsg={setErrToastMsg}
+              />
+            );
+          })}
         <CreateButton />
       </div>
     </>
   );
 }
 
-export default withErrorModal(Home);
+export default Home;

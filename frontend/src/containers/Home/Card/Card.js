@@ -1,57 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  errorToast,
-  successToast,
-  VaultInputMode,
-} from "../../../shared/utility";
+import React, { useEffect, useState } from "react";
+import { VaultInputMode } from "../../../shared/utility";
 import VaultInputModal from "../VaultInputModal/VaultInputModal";
-import {
-  getAllCredentials,
-  removeCredential,
-} from "../../../store/actions/index";
-import CustomInput from "../../../components/UI/Input/CustomInput";
-import {
-  TEMP_VAULT_SUCCESS,
-  VAULT_FAIL,
-} from "../../../store/actions/actionTypes";
-const CredentialCard = ({
-  id,
-  title,
-  description,
-  domain,
-  username,
-  password,
-  successToastMsg,
-  errToastMsg,
-  setSuccessToastMsg,
-  setErrToastMsg,
-}) => {
-  const dispatch = useDispatch();
+import { useRemoveVaultMutation } from "../../../feature/vault/vaultApi";
+
+const Card = ({ data, setSuccessToastMsg, setErrToastMsg }) => {
   const [showModal, setShowModal] = useState(false);
+  const { _id, title, description, domain, username, password } = data || {};
 
-  const currentCredential = {
-    id,
-    title,
-    description,
-    domain,
-    username,
-    password,
-  };
+  const [removeVault, { data: deletedData, isLoading, error }] =
+    useRemoveVaultMutation();
 
-  const removeItem = () => {
-    let response = dispatch(removeCredential(id));
-    response.then((result) => {
-      if (result.type === TEMP_VAULT_SUCCESS) {
-        //refetch all data
-        dispatch(getAllCredentials());
-        setSuccessToastMsg("Delete successfull!");
-      } else if (result.type === VAULT_FAIL) {
-        setSuccessToastMsg("");
-        setErrToastMsg("Delete failed!");
-      }
-    });
-  };
+  useEffect(() => {
+    if (error) {
+      setErrToastMsg("Delete failed!");
+      setSuccessToastMsg("");
+    }
+    if (deletedData) {
+      setSuccessToastMsg("Delete successed!");
+      setErrToastMsg("");
+    }
+  }, [deletedData, error]);
 
   const input_field = (labelText, placeholder) => (
     <>
@@ -98,11 +66,11 @@ const CredentialCard = ({
           showModal={showModal}
           setShowModal={setShowModal}
           selectedVaultMode={VaultInputMode.UPDATE}
-          updateData={currentCredential}
+          updateData={data}
         />
       ) : null}
 
-      <div className="block p-6 md:w-72 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow-md md:w-72 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <div className="flex justify-between">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {title}
@@ -111,7 +79,7 @@ const CredentialCard = ({
             <div className="dropdown dropdown-end">
               <button
                 tabIndex="0"
-                className="card-actions btn btn-square btn-ghost items-center"
+                className="items-center card-actions btn btn-square btn-ghost"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -129,13 +97,13 @@ const CredentialCard = ({
               </button>
               <ul
                 tabIndex="0"
-                className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-36"
+                className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-36"
               >
                 <li>
-                  <a onClick={() => setShowModal(true)}>Edit</a>
+                  <span onClick={() => setShowModal(true)}>Edit</span>
                 </li>
                 <li>
-                  <a onClick={removeItem}>Delete</a>
+                  <span onClick={() => removeVault(_id)}>Delete</span>
                 </li>
               </ul>
             </div>
@@ -150,4 +118,4 @@ const CredentialCard = ({
   );
 };
 
-export default CredentialCard;
+export default Card;

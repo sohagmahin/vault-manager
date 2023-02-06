@@ -6,7 +6,11 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001",
     prepareHeaders: async (headers, { getState, endpoint }) => {
-      let token = localStorage.getItem(TOKEN);
+      //todo
+      //read token from auth state instead of local-storages
+      // console.log(getState());
+
+      let token = JSON.parse(localStorage.getItem(TOKEN));
       if (token) {
         headers.set("Authorization", token);
       }
