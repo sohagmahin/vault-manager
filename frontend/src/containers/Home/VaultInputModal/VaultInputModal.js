@@ -92,7 +92,7 @@ function VaultInputModal({
         username: userName,
         password,
       };
-      addVault(payload);
+      addVault({ data: payload });
     } else if (VaultInputMode.UPDATE === selectedVaultMode) {
       let payload = {
         title,
@@ -101,7 +101,7 @@ function VaultInputModal({
         username: userName,
         password,
       };
-      updateVault(crId, payload);
+      updateVault({ id: crId, data: payload });
     }
   };
 

@@ -66,7 +66,7 @@ function ProfilePage() {
       name: name,
       username: userName,
     };
-    updateProfile(id, updatedData);
+    updateProfile({ id, data: updatedData });
   };
 
   return (

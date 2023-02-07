@@ -9,14 +9,14 @@ const vaultApi = apiSlice.injectEndpoints({
       }),
     }),
     addVault: builder.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: "/vault",
         method: "POST",
         body: data,
       }),
     }),
     updateVault: builder.mutation({
-      query: (id, data) => ({
+      query: ({ id, data }) => ({
         url: `/vault/${id}`,
         method: "PUT",
         body: data,
