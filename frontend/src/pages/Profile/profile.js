@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { USER_ID } from "../../constants/keys";
 import {
   useGetProfileQuery,
@@ -7,12 +8,12 @@ import {
 import { successToast, errorToast } from "../../shared/utility";
 
 function ProfilePage() {
-  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [successToastMsg, setSuccessToastMsg] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
 
+  const id = useSelector((state) => state?.auth?.id);
   const { data, error, isLoading } = useGetProfileQuery(id) || {};
   const { data: profileData, message } = data || {};
 
@@ -49,14 +50,6 @@ function ProfilePage() {
     setUserName(profileData?.username);
     console.log(profileData);
   }, [profileData]);
-
-  useEffect(() => {
-    //Todo
-    // get id from redux state. Like state.auth.id
-    const id = JSON.parse(localStorage.getItem(USER_ID));
-    if (!id) return;
-    setId(id);
-  }, []);
 
   if (isLoading) return <>Loading...</>;
   if (error) return <div>Something went wrong!!</div>;

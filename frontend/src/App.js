@@ -3,20 +3,43 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import Home from "./containers/Home/Home";
-import ProfilePage from "./containers/Profile/profile";
-import Register from "./containers/Auth/register";
-import Login from "./containers/Auth/Login";
+import Home from "./pages/Home/Home";
+import ProfilePage from "./pages/Profile/profile";
+import Register from "./pages/Auth/register";
+import Login from "./pages/Auth/Login";
+import useAuthCheck from "./hooks/useAuthCheck";
+import PrivateRoute from "./components/Routes/PrivateRoute";
 
 function App() {
-  return (
+  let authChecked = useAuthCheck();
+  console.log(authChecked);
+  return !authChecked ? (
+    <div className="flex items-center justify-center">
+      Authentication checking...
+    </div>
+  ) : (
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-        <Route exact path="/profile" element={<ProfilePage />} />
+        <Route
+          exact
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <Footer />
     </Router>
