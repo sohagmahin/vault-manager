@@ -76,7 +76,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
             cd backend ->  npm install
             cd frontend -> npm install
 
-### 🚀 Run Project By Docker container:
+### 🚀 Run Project By Docker:
 
       1. ✏️ Type in terminal:
 
