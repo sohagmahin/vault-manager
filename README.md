@@ -1,6 +1,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-## 🔐 Vault manager
+## 🔐 Vault manager -Vanilla_redux
 
 Vault manager is a simple and minimal password manager. Developed by MERN Stack.
 
