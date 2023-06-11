@@ -7,7 +7,12 @@ const vaultApi = apiSlice.injectEndpoints({
         url: "/vault/all",
         method: "GET",
       }),
-      providesTags: ["vault"],
+      providesTags: (result, error, arg) => {
+        if (error || !result.data) {
+          return ["vault"];
+        }
+        return result.data.map(({ _id }) => ({ type: "vault", _id }));
+      },
     }),
     addVault: builder.mutation({
       query: ({ data }) => ({
@@ -23,7 +28,7 @@ const vaultApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["vault"],
+      invalidatesTags: (result, error, arg) => [{ type: "vault", _id: arg.id }],
     }),
     removeVault: builder.mutation({
       query: (id) => ({
