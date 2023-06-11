@@ -50,31 +50,14 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 
 ### 🏗️ Working progress
 
-- [x] add user profile
-- [ ] delete profile
 - [ ] add profile photo
 - [ ] Validate registration field (username and password length should be 6 character)
-- [ ] Show proper validation message and error (backend)
-- [ ] add forget password (frontend + backend)
+- [ ] Show proper validation message (backend)
+- [ ] forget password (frontend + backend)
 - [ ] Support PWA
-- [ ] Use RTK and RTK-query
+- [x] RTK and RTK-query
 - [x] `Dockerize` the app
 
-### 🔌 Basic Setup:
-
-      1. 🔨 Set up .env file from 📁 /backend :
-
-            Rename .env.example to .env and update by your data.
-
-      2. 💿 Install Yarn globally `(optional)`:
-
-            sudo npm install -g yarn
-
-      3. 💿 Install dependencies`:
-
-            Via npm:
-            cd backend ->  npm install
-            cd frontend -> npm install
 
 ### 🚀 Run Project By Docker:
 
@@ -83,11 +66,22 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
             docker compose up -d
 
       You are good to go! visit http://localhost
+      
+ 
+ ### 🔌 Run Project without Docker:
 
+      1. 🔨 Set up 📁 /backend .env file:
+
+            copy .env.dev.backend to /backend/.env then update it by your own config.
+
+      2. 🔨 Set up 📁 /frontend .env file:
+
+            copy .env.dev.frontend to /fronend/.env then update it by your own config.
+            
+      Then hit `npm start for both backend and frontend!`
 ### 📹 Live Demo link
 
-[Click here](https://vault-manager.herokuapp.com/) (`It may slow to response for the 1st time.`)
+[Upcoming...]()
 
 [![Alt text](https://user-images.githubusercontent.com/35423413/188283404-24401770-b874-44a2-b41e-994468982d30.png)](https://www.youtube.com/watch?v=RMCiZWTUtfA)
 
-## action workflow test
