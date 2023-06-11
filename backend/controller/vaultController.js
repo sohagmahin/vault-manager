@@ -101,7 +101,7 @@ const updateVault = async (req, res) => {
     data.password = decryptData(data.password);
     res.status(200).json({
       data,
-      message: "success",
+      message: "Update success!",
     });
   } catch {
     res.status(500).json({

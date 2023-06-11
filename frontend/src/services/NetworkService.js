@@ -1,14 +1,14 @@
 import axios from "axios";
-import store from "../store/index";
-import { openErrorModal } from "../store/actions/index";
+// import store from "../store/index";
+// import { openErrorModal } from "../store/actions/index";
 import { TOKEN } from "../constants/keys";
 
-// const baseURL = process.env.REACT_APP_API_URL;
-const baseURL = "http://20.193.139.57";
+const baseURL = process.env.REACT_APP_API_URL;
+// const baseURL = "http://20.193.139.57";
 
 const instance = axios.create({
-  // baseURL: "http://localhost:3001",
-  baseURL: baseURL,
+  baseURL: "http://localhost:3001",
+  // baseURL: baseURL,
   // baseURL: "",
   // timeout: 2500,
 });
@@ -42,7 +42,7 @@ export const resInterceptor = instance.interceptors.response.use(
     if (error.response.status === 500) {
       // localStorage.removeItem(TOKEN);
       localStorage.clear();
-      store.dispatch(openErrorModal(error.message));
+      // store.dispatch(openErrorModal(error.message));
     }
     // } else if (error.response.status === 404) {
     //   console.log("erroor -message : ", error.message);
