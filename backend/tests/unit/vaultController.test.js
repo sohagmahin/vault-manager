@@ -18,7 +18,7 @@ describe("Vault CRUD test suite", () => {
       title: "fb account",
       description: "My primary fb accounts credential",
       domain: "account.fb.com",
-      email: "sohag@fb.com",
+      username: "sohag@fb.com",
       password: "123456",
     };
 

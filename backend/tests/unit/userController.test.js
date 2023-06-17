@@ -14,7 +14,7 @@ describe("Auth test suite.", () => {
   describe("Login test", () => {
     test("valid user -> status code should be 200 and returned object should have jwt token", async () => {
       const authData = {
-        email: "sohagmahin",
+        email: "sohagmahin@gmail.com",
         password: "123456",
       };
       const res = await request(app).post("/user/login").send(authData);

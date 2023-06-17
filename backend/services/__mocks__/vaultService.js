@@ -8,7 +8,7 @@ const mockedData = [
     title: "test account",
     description: "My primary test accounts credential",
     domain: "account.test.com",
-    email: "U2FsdGVkX18ZyZKivlWEFtoRU4Q92uXqSu6plr84K10=",
+    username: "U2FsdGVkX18ZyZKivlWEFtoRU4Q92uXqSu6plr84K10=",
     password: "U2FsdGVkX19Fq2ze3IkMff6nR/rCyAN0KWhAmhxxrd8=",
     user: {
       $oid: "62fbc4487efeb465d3a2d97b",
@@ -22,7 +22,8 @@ const mockedData = [
     title: "twitter account",
     description: "My primary twitter accounts credential",
     domain: "account.twitter.com",
-    email: "U2FsdGVkX1+vkA9bJ+HTu9OOfKrSJ9AuZ7yXiFRsP160U/vox1kfNmnsBahA0lDu",
+    username:
+      "U2FsdGVkX1+vkA9bJ+HTu9OOfKrSJ9AuZ7yXiFRsP160U/vox1kfNmnsBahA0lDu",
     password: "U2FsdGVkX19rZ7hEPMRzcPfPyLv8ELKoR1WYmsuc5xI=",
     user: {
       $oid: "62fbc4487efeb465d3a2d97b",
