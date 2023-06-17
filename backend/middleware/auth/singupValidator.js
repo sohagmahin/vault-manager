@@ -1,10 +1,7 @@
 const { check, validationResult } = require("express-validator");
 
 const signupValidator = [
-  check("username")
-    .isLength({ min: 5 })
-    .withMessage("username is required and should be five character!"),
-
+  check("email").isEmail({}).withMessage("email is required!"),
   check("password")
     .isLength({ min: 1 })
     .withMessage("password feild is required!"),
@@ -20,7 +17,7 @@ const signupValidatorHandler = function (req, res, next) {
   } else {
     res.status(400).json({
       data: {
-        username: req.body.username,
+        email: req.body.email,
       },
       errors: mappedErrors,
     });

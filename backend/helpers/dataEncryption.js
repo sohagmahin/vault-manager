@@ -35,7 +35,7 @@ const compareHash = async (plainText, hash) => {
 const generateToken = async (user) => {
   const token = await jwt.sign(
     {
-      username: user.username,
+      email: user.email,
       userId: user._id,
     },
     process.env.JWT_SECRET,

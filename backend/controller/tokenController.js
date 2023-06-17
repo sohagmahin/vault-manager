@@ -13,7 +13,7 @@ const forgetPassword = async (req, res, next) => {
 
     //lookup the user
     // const user = await User.findOne({ email: email });
-    const user = await User.findOne({ username: email });
+    const user = await User.findOne({ email: email });
     console.log(user);
 
     if (!user) {

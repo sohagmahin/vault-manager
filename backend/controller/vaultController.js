@@ -15,7 +15,7 @@ const getAllVault = async (req, res) => {
     const data = await getAllVaultsData(req.userId);
 
     data.map((vault) => {
-      vault.username = decryptData(vault.username);
+      vault.email = decryptData(vault.email);
       vault.password = decryptData(vault.password);
       return vault;
     });
@@ -41,7 +41,7 @@ const getVault = async (req, res) => {
         .json({ message: "something went wrong. try again!" });
     }
 
-    data.username = decryptData(data.username);
+    data.email = decryptData(data.email);
     data.password = decryptData(data.password);
     res.status(200).json({
       data,
@@ -56,19 +56,19 @@ const getVault = async (req, res) => {
 
 // CREATE VAULT
 const createVault = async (req, res) => {
-  const encrytedUsername = encryptData(req.body.username);
+  const encrytedemail = encryptData(req.body.email);
   const enryptedPassword = encryptData(req.body.password);
   const vault = {
     ...req.body,
-    username: encrytedUsername,
+    email: encrytedemail,
     password: enryptedPassword,
     user: req.userId,
   };
   try {
     const newVault = await saveVault(vault);
 
-    // decrypt the username and password credential
-    newVault.username = decryptData(newVault.username);
+    // decrypt the email and password credential
+    newVault.email = decryptData(newVault.email);
     newVault.password = decryptData(newVault.password);
 
     // add vault-id in user object
@@ -90,14 +90,14 @@ const updateVault = async (req, res) => {
   const updateData = {
     ...req.body,
   };
-  // encrypt username and password, if they have in req.body.
-  if (req.body.username) updateData.username = encryptData(req.body.username);
+  // encrypt email and password, if they have in req.body.
+  if (req.body.email) updateData.email = encryptData(req.body.email);
   if (req.body.password) updateData.password = encryptData(req.body.password);
 
   try {
     const data = await updateSingleVault(req.params.id, updateData);
-    // decrypt the username and password to plain text
-    data.username = decryptData(data.username);
+    // decrypt the email and password to plain text
+    data.email = decryptData(data.email);
     data.password = decryptData(data.password);
     res.status(200).json({
       data,
@@ -121,8 +121,8 @@ const deleteVault = async (req, res) => {
         .json({ message: "Something went wrong. try again!" });
     }
 
-    // decrypt the username and password to plain text
-    data.username = decryptData(data.username);
+    // decrypt the email and password to plain text
+    data.email = decryptData(data.email);
     data.password = decryptData(data.password);
     res.status(200).json({
       data,
