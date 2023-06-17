@@ -12,7 +12,9 @@ const forgetPassword = async (req, res, next) => {
     const email = req.body.email;
 
     //lookup the user
-    const user = await User.findOne({ email: email });
+    // const user = await User.findOne({ email: email });
+    const user = await User.findOne({ username: email });
+    console.log(user);
 
     if (!user) {
       return res.status(400).json({
@@ -22,13 +24,17 @@ const forgetPassword = async (req, res, next) => {
 
     //lookup token
     let token = await Token.findOne({ userId: user._id });
+    console.log(token);
 
     //generate new token
     if (!token) {
+      console.log("inside new token");
       let newToken = new Token({
         userId: user._id,
         token: generateRandomString(),
       });
+
+      console.log(newToken);
 
       token = await newToken.save();
     }
@@ -46,6 +52,7 @@ const forgetPassword = async (req, res, next) => {
 
     return res.status(200).json({
       message: "Reset link was sended. Please check your inbox!",
+      link: link,
     });
   } catch (err) {
     res.send("An error occured!");

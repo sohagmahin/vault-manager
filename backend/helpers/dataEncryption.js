@@ -47,10 +47,16 @@ const generateToken = async (user) => {
   return token;
 };
 
+const generateRandomString = () => {
+  // return crypto.randomBytes(32).toString("hex");
+  return CryptoJS.lib.WordArray.random(32).toString();
+};
+
 module.exports = {
   encryptData,
   decryptData,
   createHash,
   compareHash,
   generateToken,
+  generateRandomString,
 };
