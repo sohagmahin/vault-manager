@@ -1,6 +1,6 @@
 const User = require("../model/userModel");
 const Token = require("../model/tokenModel");
-// const SendMail = require("../helper/sendMail");
+const { SendMail } = require("../helpers/mail/mail");
 const {
   generateRandomString,
   createHash,
@@ -43,18 +43,15 @@ const forgetPassword = async (req, res, next) => {
     const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
 
     //link send to mail
-
-    // await SendMail(
-    //   `${user.email}`,
-    //   "Reset Password link",
-    //   `Plese click link below to reset password. ${link}`
-    // );
+    // email, userName, resetLink, id
+    await SendMail(`${user.email}`, `${user.name}`, `${link}`);
 
     return res.status(200).json({
       message: "Reset link was sended. Please check your inbox!",
       link: link,
     });
   } catch (err) {
+    console.log(err);
     res.send("An error occured!");
   }
 };
