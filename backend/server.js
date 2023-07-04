@@ -6,6 +6,6 @@ const PORT = process.env.PORT || 3001;
 connectDB();
 
 // start server
-app.listen(PORT, () => {
+app.listen(3001, () => {
   console.log(`Server running on ${process.env.PORT} port`);
 });
