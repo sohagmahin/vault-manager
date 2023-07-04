@@ -7,7 +7,7 @@ const baseURL = process.env.REACT_APP_API_URL;
 // const baseURL = "http://20.193.139.57";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://36.255.71.194:3001",
   // baseURL: baseURL,
   // baseURL: "",
   // timeout: 2500,
