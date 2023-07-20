@@ -40,7 +40,7 @@ const forgetPassword = async (req, res, next) => {
     }
 
     //generate password reset link
-    const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
+    const link = `${process.env.BASE_URL}/password-reset/validate/${user._id}/${token.token}`;
 
     //link send to mail
     // email, userName, resetLink, id
@@ -97,7 +97,44 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+const validateToken = async (req, res, next) => {
+  try {
+    const tokenParam = req.params.token;
+    const userId = req.params.userId;
+    //lookup user
+    const user = await User.findById({ _id: userId });
+
+    if (!user) {
+      return res.status(400).json({
+        valid: false,
+        message: "Invalid Link!",
+      });
+    }
+
+    //lookup token
+    const token = await Token.findOne({
+      token: tokenParam,
+    });
+
+    if (token) {
+      res
+        .status(301)
+        .redirect(
+          "http://localhost:3000/password-reset/" + userId + "/" + tokenParam
+        );
+    } else {
+      return res.status(400).json({
+        valid: false,
+        message: "Invalid Link!",
+      });
+    }
+  } catch (err) {
+    res.send("An error occured!");
+  }
+};
+
 module.exports = {
   forgetPassword,
   resetPassword,
+  validateToken,
 };
