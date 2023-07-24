@@ -81,7 +81,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
       Then hit `npm start for both backend and frontend!`
 ### 📹 Live Demo link
 
-[Upcoming...]()
+[http://36.255.71.194](http://36.255.71.194/)
 
 [![Alt text](https://user-images.githubusercontent.com/35423413/188283404-24401770-b874-44a2-b41e-994468982d30.png)](https://www.youtube.com/watch?v=RMCiZWTUtfA)
 
