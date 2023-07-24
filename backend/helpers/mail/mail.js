@@ -7,12 +7,12 @@ const SendMail = async (email, userName, resetLink) => {
   await resend.emails.send({
     from: "onboarding@resend.dev",
     to: email,
-    subject: "Password Reset Link",
+    subject: "Password Reset Link (Vault manager)",
     // react: EmailTemplete({
     //   userName: userName,
     //   resetPasswordLink: resetLink,
     // }),
-    html: `<p>HI <strong>${userName}</strong>! </br> <a href=${resetLink}>click here to reset password</a>
+    html: `<p>HI <strong>${userName}</strong>! </br> Your password reset link:  <a href=${resetLink}>click here to reset password</a>
     </p>`,
   });
 };

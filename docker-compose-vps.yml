@@ -19,6 +19,7 @@ services:
       - 3001:3001
     environment:
       DB_URL: mongodb://db/vaults
+      FRONTEND_URL: http://36.255.71.194
       RESENT_API_KEY: re_KyB6NXFW_MUWc*****pZDg3D7
       PORT: 3001
       CREDENTIAL_SECRET_KEY: 1234567890

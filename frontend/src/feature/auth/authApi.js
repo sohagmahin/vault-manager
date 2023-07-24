@@ -35,7 +35,26 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    forgetPassword: builder.mutation({
+      query: (data) => ({
+        url: "/password-reset",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    resetPassword: builder.mutation({
+      query: (data) => ({
+        url: `/password-reset/${data.userID}/${data.token}`,
+        method: "POST",
+        body: { password: data.password },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useForgetPasswordMutation,
+  useResetPasswordMutation,
+} = authApi;
