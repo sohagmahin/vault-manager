@@ -40,8 +40,8 @@ const forgetPassword = async (req, res, next) => {
     }
 
     //generate password reset link
-    const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
-
+    const url = process.env.FRONTEND_URL || "http://localhost";
+    const link = `${url}/password-reset/` + user?._id + "/" + token?.token;
     //link send to mail
     // email, userName, resetLink, id
     await SendMail(`${user.email}`, `${user.name}`, `${link}`);
@@ -97,7 +97,43 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+// const validateToken = async (req, res, next) => {
+//   try {
+//     const tokenParam = req.params.token;
+//     const userId = req.params.userId;
+//     //lookup user
+//     const user = await User.findById({ _id: userId });
+
+//     if (!user) {
+//       return res.status(400).json({
+//         valid: false,
+//         message: "Invalid Link!",
+//       });
+//     }
+
+//     //lookup token
+//     const token = await Token.findOne({
+//       token: tokenParam,
+//     });
+
+//     if (token) {
+//       const url = process.env.FRONTEND_URL || "localhost";
+//       res
+//         .status(301)
+//         .redirect(`http://${url}/password-reset/` + userId + "/" + tokenParam);
+//     } else {
+//       return res.status(400).json({
+//         valid: false,
+//         message: "Invalid Link!",
+//       });
+//     }
+//   } catch (err) {
+//     res.send("An error occured!");
+//   }
+// };
+
 module.exports = {
   forgetPassword,
   resetPassword,
+  // validateToken,
 };

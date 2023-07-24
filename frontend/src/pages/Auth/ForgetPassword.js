@@ -1,51 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../feature/auth/authApi";
+import { useForgetPasswordMutation } from "../../feature/auth/authApi";
 import { errorToast, successToast } from "../../shared/utility";
 
-const Login = () => {
+const ForgetPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
+  const [successToastMsg, setSuccessToastMsg] = useState("");
   const navigate = useNavigate();
 
-  const [login, { data, isLoading, error, isError }] = useLoginMutation();
+  const [forgetPassword, { data, isLoading, error, isError }] =
+    useForgetPasswordMutation();
 
   useEffect(() => {
     if (isError) {
       setErrToastMsg(error?.data?.message);
+      let key = Object.keys(error?.data?.errors)[0];
+      let value = error?.data?.errors[key];
+      setErrToastMsg(value?.msg);
+    } else if (data?.message) {
+      setSuccessToastMsg(data?.message);
     }
-    if (data?.access_token && data?.id) {
-      navigate("/");
-    }
-  }, [data, error, navigate]);
+
+    console.log(error);
+  }, [data, error, isError]);
 
   const onChangeHandler = (event, type) => {
     let value = event.target.value;
     if (type === "email") {
       setEmail(value);
     }
-
-    if (type === "password") {
-      setPassword(value);
-    }
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    login({ email, password });
+    forgetPassword({ email: email });
   };
 
   return (
     <div className="min-h-screen hero bg-base-200">
       {errToastMsg ? errorToast(errToastMsg, () => setErrToastMsg("")) : null}
-
-      <div className="flex-col hero-content lg:flex-row-reverse">
+      {successToastMsg
+        ? successToast(successToastMsg, () => setSuccessToastMsg(""))
+        : null}
+      <div className="flex-col hero-content">
+        <label className="text-lg font-medium">Forget Password</label>
         <div className="w-full shadow-2xl card bg-base-100">
           <div className="card-body w-80">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text">Enter your mail</span>
               </label>
               <input
                 id="email"
@@ -56,41 +60,20 @@ const Login = () => {
                 className="input input-bordered"
               />
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(event) => onChangeHandler(event, "password")}
-                className="input input-bordered"
-              />
-              <label className="label">
-                <a
-                  href="/forgetPassword"
-                  className="label-text-alt link link-hover"
-                >
-                  Forgot password?
-                </a>
-              </label>
-            </div>
+
             <div className="mt-6 form-control">
               <button
                 id="submit"
+                disabled={isLoading}
                 className="btn btn-primary"
                 onClick={onSubmit}
               >
-                LOGIN
+                SEND LINK
               </button>
             </div>
             <div className="divider">OR</div>
             <div className="flex justify-center">
-              <button onClick={() => navigate("/register")}>
-                Do you want to register?
-              </button>
+              <button onClick={() => navigate("/login")}>Back to Login</button>
             </div>
           </div>
         </div>
@@ -99,4 +82,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgetPassword;

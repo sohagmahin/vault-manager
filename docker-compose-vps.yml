@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  web:
+    depends_on:
+      - api
+    image: sohagmahin/vault-web
+    ports:
+      - 80:80
+    environment:
+      REACT_APP_API_URL: http://36.255.71.194:3001
+    restart: unless-stopped
+
+  api:
+    depends_on:
+      - db
+    image: sohagmahin/vault-api
+    ports:
+      - 3001:3001
+    environment:
+      DB_URL: mongodb://db/vaults
+      FRONTEND_URL: http://36.255.71.194
+      RESENT_API_KEY: re_KyB6NXFW_MUWc*****pZDg3D7
+      PORT: 3001
+      CREDENTIAL_SECRET_KEY: 1234567890
+      USER_SECRET_KEY: 1234567890
+      JWT_SECRET: 1234567890
+    restart: unless-stopped
+
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - vaults:/data/db
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
+
+volumes:
+  vaults:

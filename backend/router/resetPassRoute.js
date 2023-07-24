@@ -12,6 +12,7 @@ const {
 const {
   forgetPassword,
   resetPassword,
+  // validateToken,
 } = require("../controller/tokenController");
 
 router.post(
@@ -27,5 +28,7 @@ router.post(
   resetPassValidatorHandler,
   resetPassword
 );
+
+// router.get("/validate/:userId/:token", validateToken);
 
 module.exports = router;
