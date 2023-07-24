@@ -53,12 +53,10 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 ### 🏗️ Working progress
 
 - [ ] add profile photo
-- [ ] Validate registration field (username and password length should be 6 character)
-- [ ] Show proper validation message (backend)
-- [ ] forget password (frontend + backend)
+- [x] forget password (frontend + backend)
 - [ ] Support PWA
 - [x] RTK and RTK-query
-- [x] `Dockerize` the app
+- [x] `Dockerize` the axpp
 
 
 ### 🚀 Run Project By Docker:
