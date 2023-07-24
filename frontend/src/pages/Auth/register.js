@@ -6,7 +6,7 @@ import { errorToast } from "../../shared/utility";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
   const navigate = useNavigate();
@@ -30,8 +30,8 @@ const Register = () => {
 
   const onChangeHandler = (event, type) => {
     let value = event.target.value;
-    if (type === "username") {
-      setUserName(value);
+    if (type === "email") {
+      setEmail(value);
     }
 
     if (type === "password") {
@@ -44,7 +44,7 @@ const Register = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    register({ name, username: userName, password });
+    register({ name, email, password });
   };
 
   return (
@@ -69,14 +69,14 @@ const Register = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Username</span>
+                <span className="label-text">Email</span>
               </label>
               <input
-                id="username"
-                type="text"
-                placeholder="username"
-                value={userName}
-                onChange={(event) => onChangeHandler(event, "username")}
+                id="email"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(event) => onChangeHandler(event, "email")}
                 className="input input-bordered"
               />
             </div>

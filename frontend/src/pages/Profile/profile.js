@@ -9,7 +9,7 @@ import { successToast, errorToast } from "../../shared/utility";
 
 function ProfilePage() {
   const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [successToastMsg, setSuccessToastMsg] = useState("");
   const [errToastMsg, setErrToastMsg] = useState("");
 
@@ -24,8 +24,8 @@ function ProfilePage() {
 
   const onChangeHandler = (event, type) => {
     let value = event.target.value;
-    if (type === "username") {
-      setUserName(value);
+    if (type === "email") {
+      setEmail(value);
     }
 
     if (type === "name") {
@@ -47,7 +47,7 @@ function ProfilePage() {
   useEffect(() => {
     if (!profileData) return;
     setName(profileData?.name);
-    setUserName(profileData?.username);
+    setEmail(profileData?.email);
     console.log(profileData);
   }, [profileData]);
 
@@ -57,7 +57,7 @@ function ProfilePage() {
   const onSubmit = () => {
     const updatedData = {
       name: name,
-      username: userName,
+      email,
     };
     updateProfile({ id, data: updatedData });
   };
@@ -86,14 +86,14 @@ function ProfilePage() {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Username</span>
+                <span className="label-text">Email</span>
               </label>
               <input
-                id="username"
-                type="text"
-                placeholder="username"
-                value={userName}
-                onChange={(event) => onChangeHandler(event, "username")}
+                id="email"
+                type="email"
+                placeholder="email"
+                value={email}
+                onChange={(event) => onChangeHandler(event, "email")}
                 className="input input-bordered"
               />
             </div>

@@ -24,14 +24,14 @@ const getUserByID = async (userId) => {
 };
 
 //get users by id
-const getUsersByUsername = async (username) => {
-  const users = await User.find({ username: username });
+const getUsersByemail = async (email) => {
+  const users = await User.find({ email: email });
   return users;
 };
 
-//get single user by username
-const getUserByUsername = async (username) => {
-  const user = await User.findOne({ username: username });
+//get single user by email
+const getUserByemail = async (email) => {
+  const user = await User.findOne({ email: email });
   return user;
 };
 
@@ -73,8 +73,8 @@ const addVaultID = async (userId, vaultId) => {
 module.exports = {
   getUsers,
   getUserByID,
-  getUsersByUsername,
-  getUserByUsername,
+  getUsersByemail,
+  getUserByemail,
   saveUser,
   updateUserByID,
   deleteUserByID,

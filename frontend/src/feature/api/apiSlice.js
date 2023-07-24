@@ -28,6 +28,6 @@ export const apiSlice = createApi({
     }
     return result;
   },
-  tagTypes: ["vault"],
+  tagTypes: ["vault", "user"],
   endpoints: (builder) => ({}),
 });

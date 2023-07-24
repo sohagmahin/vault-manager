@@ -7,7 +7,7 @@ jest.mock("../../services/vaultService.js");
 describe("Vault CRUD test suite", () => {
   test("[POST] Vault should be created", async () => {
     const authData = {
-      username: "sohagmahin",
+      email: "sohagmahin@gmail.com",
       password: "123456",
     };
     const resLogin = await request(app).post("/user/login").send(authData);
@@ -33,7 +33,7 @@ describe("Vault CRUD test suite", () => {
   });
   it("[GET] should return all vaults", async () => {
     const authData = {
-      username: "sohagmahin",
+      email: "sohagmahin@gmail.com",
       password: "123456",
     };
     const resLogin = await request(app).post("/user/login").send(authData);
@@ -49,7 +49,7 @@ describe("Vault CRUD test suite", () => {
 
   it("[GET] should return single vault", async () => {
     const authData = {
-      username: "sohagmahin",
+      email: "sohagmahin@gmail.com",
       password: "123456",
     };
     const resLogin = await request(app).post("/user/login").send(authData);
@@ -65,7 +65,7 @@ describe("Vault CRUD test suite", () => {
 
   it("[PUT] should be update vault", async () => {
     const authData = {
-      username: "sohagmahin",
+      email: "sohagmahin@gmail.com",
       password: "123456",
     };
     const resLogin = await request(app).post("/user/login").send(authData);
@@ -82,7 +82,7 @@ describe("Vault CRUD test suite", () => {
 
   it("[DELETE] should be delete", async () => {
     const authData = {
-      username: "sohagmahin",
+      email: "sohagmahin@gmail.com",
       password: "123456",
     };
     const resLogin = await request(app).post("/user/login").send(authData);

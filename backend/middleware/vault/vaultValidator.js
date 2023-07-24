@@ -2,9 +2,7 @@ const { check, validationResult } = require("express-validator");
 
 const vaultValidator = [
   check("domain").isLength({ min: 1 }).withMessage("Domain name is required!"),
-
   check("username").isLength({ min: 1 }).withMessage("Username is required!"),
-
   check("password").isLength({ min: 1 }).withMessage("Password is required!"),
 ];
 

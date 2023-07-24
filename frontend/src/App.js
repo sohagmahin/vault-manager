@@ -9,6 +9,8 @@ import Register from "./pages/Auth/register";
 import Login from "./pages/Auth/Login";
 import useAuthCheck from "./hooks/useAuthCheck";
 import PrivateRoute from "./components/Routes/PrivateRoute";
+import ForgetPassword from "./pages/Auth/ForgetPassword";
+import ResetPassword from "./pages/Auth/resetPassword";
 
 function App() {
   let authChecked = useAuthCheck();
@@ -31,6 +33,12 @@ function App() {
         />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/forgetPassword" element={<ForgetPassword />} />
+        <Route
+          exact
+          path="/password-reset/:userID/:token"
+          element={<ResetPassword />}
+        />
         <Route
           exact
           path="/profile"

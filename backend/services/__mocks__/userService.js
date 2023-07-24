@@ -7,7 +7,7 @@ const mockedUser = [
       $oid: "62fbc4487efeb465d3a2d97b",
     },
     name: "sohag",
-    username: "sohagmahin",
+    email: "sohagmahin",
     password: "$2b$10$0xYTgi.zFeaO2cXe1hpJ.e05W.Z7piM0zXSjEjRYQ9t.eEnq/kgJO",
     vaults: [],
     __v: 0,
@@ -17,7 +17,7 @@ const mockedUser = [
       $oid: "62fd217e049e4f5bdb03ac76",
     },
     name: "test user",
-    username: "testtest",
+    email: "testtest",
     password: "$2b$10$oSp5jHyn9XZSu7igfvzbaufBNg1MyECujx4/4ZjS.eeQvP4KHp37q",
     vaults: [],
     __v: 0,
@@ -36,15 +36,15 @@ const getUserByID = async (userId) => {
 };
 
 //get users by id
-const getUsersByUsername = async (username) => {
-  const users = mockedUser.filter((user) => user.username == username);
+const getUsersByemail = async (email) => {
+  const users = mockedUser.filter((user) => user.email == email);
   return users;
 };
 
-//get single user by username
-const getUserByUsername = async (username) => {
-  // const user = await User.findOne({ username: username });
-  const user = mockedUser.find((user) => user.username === username);
+//get single user by email
+const getUserByemail = async (email) => {
+  // const user = await User.findOne({ email: email });
+  const user = mockedUser.find((user) => user.email === email);
   return user;
 };
 
@@ -93,8 +93,8 @@ const addVaultID = async (userId, vaultId) => {
 module.exports = {
   getUsers,
   getUserByID,
-  getUsersByUsername,
-  getUserByUsername,
+  getUsersByemail,
+  getUserByemail,
   saveUser,
   updateUserByID,
   deleteUserByID,

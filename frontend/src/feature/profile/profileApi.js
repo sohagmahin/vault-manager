@@ -4,6 +4,7 @@ const profileApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProfile: builder.query({
       query: (id) => `/user/${id}`,
+      providesTags: ["user"],
     }),
 
     updateProfile: builder.mutation({
@@ -12,6 +13,7 @@ const profileApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["user"],
     }),
   }),
 });

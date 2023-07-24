@@ -35,7 +35,7 @@ const compareHash = async (plainText, hash) => {
 const generateToken = async (user) => {
   const token = await jwt.sign(
     {
-      username: user.username,
+      email: user.email,
       userId: user._id,
     },
     process.env.JWT_SECRET,
@@ -47,10 +47,16 @@ const generateToken = async (user) => {
   return token;
 };
 
+const generateRandomString = () => {
+  // return crypto.randomBytes(32).toString("hex");
+  return CryptoJS.lib.WordArray.random(32).toString();
+};
+
 module.exports = {
   encryptData,
   decryptData,
   createHash,
   compareHash,
   generateToken,
+  generateRandomString,
 };

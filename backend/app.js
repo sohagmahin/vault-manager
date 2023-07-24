@@ -7,6 +7,7 @@ const path = require("path");
 const app = express();
 const vaultHandler = require("./router/vaultRoute");
 const userHandler = require("./router/userRoute");
+const resetPasswordRouter = require("./router/resetPassRoute");
 const connectDB = require("./helpers/connectDB");
 
 // enable dotenv
@@ -18,6 +19,7 @@ app.use(express.json());
 // routes
 app.use("/vault", vaultHandler);
 app.use("/user", userHandler);
+app.use("/password-reset", resetPasswordRouter);
 
 //connect database for run app test suites
 connectDB();

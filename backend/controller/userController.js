@@ -5,8 +5,8 @@ const {
 } = require("../helpers/dataEncryption");
 const {
   getUsers,
-  getUsersByUsername,
-  getUserByUsername,
+  getUsersByemail,
+  getUserByemail,
   getUserByID,
   saveUser,
   updateUserByID,
@@ -47,8 +47,8 @@ const getUser = async (req, res) => {
 // LOGIN
 const login = async (req, res) => {
   try {
-    // const user = await User.findOne({ username: req.body.username });
-    const user = await getUserByUsername(req.body.username);
+    // const user = await User.findOne({ email: req.body.email });
+    const user = await getUserByemail(req.body.email);
     if (user) {
       const isValidPassword = await compareHash(
         req.body.password,
@@ -83,10 +83,10 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
   try {
     // look up the user collection to see user have already exist or not.
-    const userList = await getUsersByUsername(req.body.username);
+    const userList = await getUsersByemail(req.body.email);
     if (userList.length > 0) {
       return res.status(409).json({
-        message: "Username already exist!",
+        message: "email already exist!",
       });
     }
 

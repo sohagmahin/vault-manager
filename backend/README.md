@@ -17,7 +17,7 @@ Simple password manager by expressJS.
           type: String,
           required: true
       },
-      username: {
+      email: {
           type: String,
           required: true
       },
@@ -43,7 +43,7 @@ Simple password manager by expressJS.
             required: true
         },
 
-        username: {
+        email: {
             type: String,
             required: true
         },
