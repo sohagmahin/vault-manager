@@ -3,7 +3,7 @@ import { TOKEN } from "../../constants/keys";
 import { userLoggedOut } from "../auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://36.255.71.194:3001",
+  baseUrl: "http://localhost:3001",
   prepareHeaders: async (headers, { getState, endpoint }) => {
     //todo
     //read token from auth state instead of local-storages
