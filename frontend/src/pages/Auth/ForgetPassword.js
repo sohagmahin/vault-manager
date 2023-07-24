@@ -14,10 +14,14 @@ const ForgetPassword = () => {
 
   useEffect(() => {
     if (isError) {
-      setErrToastMsg(error?.data?.message);
-      let key = Object.keys(error?.data?.errors)[0];
-      let value = error?.data?.errors[key];
-      setErrToastMsg(value?.msg);
+      if (error?.data?.errors) {
+        let keys = Object.keys(error?.data?.errors);
+
+        let value = error?.data?.errors[keys[0]];
+        setErrToastMsg(value?.msg);
+      } else if (error?.data?.message) {
+        setErrToastMsg(error?.data?.message);
+      }
     } else if (data?.message) {
       setSuccessToastMsg(data?.message);
     }
