@@ -4,9 +4,6 @@
 
 Vault manager is a simple and minimal password manager. Developed by MERN Stack.
 
-This is a self-learning project. So don’t aspect all functionality which has a real password manager. The repo is absolutely for beginners. <br>
-So, _What I did in this project_?
-
 `In Backend:`
 Created user module and vault module. so users can able signup, sign in, and manage their profile. And also store their vaults by vault module. And all important vault data are encrypted by cryptoJS(symmetric-key algorithm) and user module data are encrypted by bcrypt package. So the data are well protected on the database.
 
