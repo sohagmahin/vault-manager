@@ -2,7 +2,7 @@
 
 ## 🔐 Vault manager
 
-Vault manager is a simple and minimal password manager. Developed by MERN Stack.
+Vault manager is a simple and minimal password manager.
 
 -> [vanilla_redux code](https://github.com/sohagmahin/vault-manager/tree/vanilla_redux)
 
