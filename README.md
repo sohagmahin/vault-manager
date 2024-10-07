@@ -53,7 +53,7 @@ Made a minimal and user-friendly interface by React and daisyUI(tailwind-based C
 - [x] forget password (frontend + backend)
 - [ ] Support PWA
 - [x] RTK and RTK-query
-- [x] `Dockerize` the axpp
+- [x] `Dockerize` the app
 
 
 ### 🚀 Run Project By Docker:
